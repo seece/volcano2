@@ -1,0 +1,94 @@
+ ---------------------------------
+ | Volcano 2              v 0.71 |
+ | (C) 1999 - 2000 Tero Laitinen |
+ ---------------------------------
+
+ 1. The game
+ 2. Requirements 
+ 3. Contact me  
+ 4. Volcano 2's destiny
+ 5. Map editor    
+ 6. Authors
+ 7. Version history
+
+ -----------------------------
+
+
+ 1. The game
+
+ Volcano 2 is an addictive action game for two or three players.
+ The main idea of game is (suprise suprise!) to kill your enemies(players &
+ bots). The elimination of enemies is best done with weapons.
+ To be able to buy weapons you must collect lava.
+ You must be near to your base in order to buy stuff.
+ Screenshots can be taken by pressing F8.
+
+ 2. Recommended system   
+
+  - Pentium 2 300 Mhz
+  - 32 Mb ram.
+  - Sound Blaster compatible or GUS sound card
+  - Very very fast graphics adapter(AGP), which has VBE 2.0 or VBE 3.0
+  - An old keyboard which allows many simultaneous keypresses without
+    getting stuck
+
+ 3. Contact me   
+
+ Email:
+  tlaitinen@jippii.fi 
+ Homepages:
+  http://tlaitinen.gangsters.org
+
+ 4. Volcano 2's destiny
+
+ This version of Volcano 2 contains source codes and it is propably the last
+ version that I will publish (if no new interest in game development occurs).
+ The main reason for this is very old game engine. It lacks flexibility
+ needed for new ideas and so development has stopped.
+
+ One can develop game further and source codes are allowed to use freely
+ in one's own projects as long as I am mentioned in the credits.
+ Source codes are located in source.zip. You need DJGPP with Allegro and
+ MikMod properly installed in order to compile Volcano 2.
+
+ 5. Map editor
+
+ Press h for help. :)
+
+ 6. Authors
+                                                         
+ Code + Small part of graphics + Maps
+  - Tero Laitinen(tlaitinen@jippii.fi)
+
+ Large part of graphics + Some ideas + Betatesting + Maps
+  - Toni Kemppainen(makkaratehdas@hotmail.com)
+
+ Battle music
+  - Fifth Note / Ville Sahlakari(ville.sahlakari@mbnet.fi)
+
+ Menu music
+  - Joona Karjalainen(joona.karjalainen@mbnet.fi)
+
+ 7. Version history
+
+ v0.7
+  - New weapon: Machinegun. Old machinegun <=> submachinegun
+  - New maps
+  - Bots have armors now
+  - Improved graphics
+  - Bugs crushed    
+  - Damages & prices adjusted
+
+ v0.6
+  - New weapons: Sniper rifle, Plasma rifle
+  - New armor: Spectra armor
+  - New items: Camouflage suit, Medikit, Targeting system
+  - New maps
+  - Few map object pictures added
+  - Grenades upgraded
+  - Bugs poisoned
+
+ v0.5
+
+  - First released version
+

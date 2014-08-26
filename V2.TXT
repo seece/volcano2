@@ -1,0 +1,93 @@
+ ---------------------------------
+ | Volcano 2              v 0.71 |
+ | (C) 1999 - 2000 Tero Laitinen |
+ ---------------------------------
+
+ 1. Peli
+ 2. Laitteistovaatimukset
+ 3. Yhteystiedot
+ 4. Volcano 2:n kohtalo
+ 5. Karttaeditori
+ 6. Tekijät
+ 7. Versiohistoria
+
+ -----------------------------
+ 
+ 1. Peli
+
+ Volcano 2 on sivultapäin kuvattu toimintapeli kahdelle tai kolmelle
+ pelaajalle. Pelin tarkoitus on (yllätys yllätys!) tappaa toiset(botit tai
+ ihmiset).  Toisten eliminoiminen onnistuu aseilla, joita saa
+ keräämällä laavaa. Tavaroiden ostaminen onnistuu vain oman
+ tukikohdan lähellä. Screenshotteja voi ottaa painamalla F8.
+
+ 2. Laitteistosuositukset
+
+  - Pentium 2 300 Mhz
+  - 32 Mb muistia
+  - Sound Blaster yhteensopiva tai GUS äänikortti
+  - Erittäin nopea näytönohjain(AGP), jossa on VBE 2.0 tai VBE 3.0
+  - Vanha näppäimistö, joka sallii useammat yhtäaikaiset painallukset
+    menemättä jumiin.
+
+ 3. Yhteystiedot
+
+ Email:
+  tlaitinen@jippii.fi 
+ Kotisivut:
+  http://tlaitinen.gangsters.org
+
+ 4. Volcanon 2:n kohtalo
+
+ Tämä versio Volcano 2:sta sisältää lähdekoodit ja luultavasti on viimeinen
+ minun julkaisemani versio pelistä ellei uutta kiinnostusta löydy. Suurin syy
+ tähän on ikivanha tekniikka. Peli lähti pienestä liikkeelle ja siihen sitten
+ on pitkän ajan kuluessa kasattu vain ominaisuuksia. Lopulta pelistä tuli
+ raskas kehittää vanhojen tietorakenteiden ja rutiineiden ollessa tehottomia.
+
+ Peliä saa kehittää eteenpäin ja lähdekoodeja saa käyttää vapaasti omissa
+ ohjelmissanne kunhan mainitsette minut. Lähdekoodit sijaitsevat zipissä
+ source.zip. Kääntämiseen tarvitaan Allegro, MikMod sekä DJGPP.
+
+
+ 5. Karttaeditori
+
+ Helppi löytyy painamalla h. :)
+
+ 6. Tekijät
+
+ Koodi + Hieman grafiikkaa + Karttoja
+  - Tero Laitinen(tlaitinen@jippii.fi)
+
+ Suurin osa grafiikkaa + Ideoita + Bugimetsästystä + Karttoja
+  - Toni Kemppainen(makkaratehdas@hotmail.com)
+
+ Taistelumusiikki
+  - Fifth Note / Ville Sahlakari
+
+ Menumusiikki
+  - Joona Karjalainen(joona.karjalainen@mbnet.fi)
+
+ 7. Versiohistoria
+
+ v0.7
+  - Uusi ase: Machinegun. Vanha machinegun <=> submachinegun
+  - Uusia karttoja
+  - Boteillakin on panssarit
+  - Parannellut grafiikat
+  - Bugeja liiskattu
+  - Tehoja & hintoja muuteltu
+ 
+ v0.6
+  - Uusia aseita: Sniper rifle, Plasma rifle
+  - Uusi panssari: Spectra armor
+  - Uutta tavaraa: Camouflage suit, Medikit, Targeting system
+  - Muutama puu maastografiikoihin lisää
+  - Uusia karttoja
+  - Menumusiikki
+  - Kranaatteja paranneltu
+  - Bugeja myrkytetty
+
+ v0.5
+
+  - Ensimmäinen julkaistu versio
