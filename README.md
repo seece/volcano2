@@ -8,7 +8,7 @@ Currently it's not possible to compile the source code on modern systems because
 
 ## License
 
-An excerpt from `V2.TXT` allows the use of source code for derivative projects.
+An excerpt from `V2ENG.TXT` allows the use of source code for derivative projects.
 
 >This version of Volcano 2 contains source codes and it is propably the last
 >version that I will publish (if no new interest in game development occurs).
@@ -20,4 +20,4 @@ An excerpt from `V2.TXT` allows the use of source code for derivative projects.
 >Source codes are located in source.zip. You need DJGPP with Allegro and
 >MikMod properly installed in order to compile Volcano 2.
 
-See `V2.TXT` for more.
+See `V2ENG.TXT` for more.
