@@ -2,11 +2,22 @@
 #include <allegro.h>
 #include <mikmod.h>
 #include <ctype.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <math.h>
+#include <string.h>
+#include <stdio.h>
+#include <time.h>
+
 #define EDITOR
+
+
 bool Done = false;
 int Multi;
-#include "lotlib.h"
 int Hiti = 0, Wep, Lavatimer, Timer;
+
+#include "lotlib.h"
+
 //#include "keyboard.h"
 #include "types.h"
 #include "data.h"
