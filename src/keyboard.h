@@ -1,10 +1,6 @@
 #ifndef __KEYBOARD_H
 #define __KEYBOARD_H
 
-#include <dos.h>
-#include <go32.h>
-#include <dpmi.h>
-
 #define SxNONE      0x00
 #define SxESC       0x01
 #define Sx1         0x02
