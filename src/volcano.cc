@@ -14,7 +14,16 @@ unsigned _stklen = 16834*1024;
 #include <time.h>
 #include <allegro.h>
 #include <mikmod.h>
-#include <dir.h>
+#include <dirent.h>
+#include <vector>
+#include <string>
+
+using namespace std; // Yeah...
+
+/*-----------------------------------------------------
+ * Globals
+ *----------------------------------------------------*/
+
 bool Done = false; // Jos done == True niin veks pois hus
 bool Exit = false;
 bool Mustfadein = false;
@@ -28,14 +37,13 @@ bool Mustfadein = false;
 
 int Timer, Multi = 0, Lavatimer;
 int Curmenu = 0;
-typedef struct
- {
-   char *S;
- } Tfilename;
-
 int Filescroll = 0;
-int Files = 0;
-Tfilename * File; // Tiedostonvalintaa varten
+
+// Names of *.map files, populated in Searchfiles()
+// (hopefully) just an temporary hack
+std::vector<string> mapFilenames;
+
+/* Modules lacking compilation unit ... */
 
 #include "keyboard.h" // definet esim SxUP == nuoli ylös
 #include "types.h"    // tyyppimäärittelyt pelihahmot laavat maailma
@@ -51,8 +59,6 @@ Tfilename * File; // Tiedostonvalintaa varten
 #include "control.h"  // pelaajien kontrollointi
 
 
-Tfilename *New_filename(Tfilename * map, int *totalnum);
-Tfilename *Delete_filename(int num, Tfilename * map, int *totalnum);
 void Sayhello();                   // tervetulotoivotus
 void main(int Argc, char ** Args); // pääohjelma
 void Searchfiles();                // etsii .map päätteiset tiedostot
@@ -64,54 +70,6 @@ void Update_timers();              // Timereiden päivitys
 void Game();                       // pääluuppi
 
 
-Tfilename *New_filename(Tfilename * map, int *totalnum)
- {
-   if (*totalnum==0)
-    {
-      *totalnum = 1;
-      map = new Tfilename[*totalnum];
-      memset(&map[(*totalnum)-1], 0, sizeof(Tfilename));
-    } // if (*totalnum==0)
-     else
-      {
-        (*totalnum)++;
-        Tfilename * Apu = new Tfilename[*totalnum];
-        for (int Count = 0; Count < *totalnum-1; Count++)
-         memcpy(&Apu[Count], &map[Count], sizeof(Tfilename));
-         delete map;
-         map = Apu;
-         memset(&map[(*totalnum-1)], 0, sizeof(Tfilename));
-      } // else (if (*totalnum==0))
-  return map;
- } // Tfilename *New_map(Tfilename * map, int *totalnum)
-Tfilename *Delete_filename(int num, Tfilename * map, int *totalnum)
- {
-   if (*totalnum==1)
-    {
-      *totalnum = 0;
-      delete map;
-    } // if (*totalnum==0)
-     else
-      {
-        (*totalnum)--;
-
-        Tfilename * Apu = new Tfilename[*totalnum];
-         bool Done = false;
-         int i1=0, i2=0;
-         do
-          {
-            if (i2 == num)
-             {
-              i2++;
-             }
-           memcpy(&Apu[i1++], &map[i2++], sizeof(Tfilename));
-            if (i1 == *totalnum) Done = true;
-          } while (Done == false);
-         delete map;
-         map = Apu;
-   }
-  return map;
- } // Tfilename *Delete_map(int num, Ttext * map, int *totalnum)
 void Sayhello()
  {
 
@@ -185,18 +143,43 @@ void main(int Argc, char ** Args)
 
  } // main
 
+/**
+ * Populates the global vector<string> mapFilenames
+ *
+ * TODO: remove (hack)
+ */
 void Searchfiles()
  {
-     struct ffblk Dir;
-     int done = findfirst("*.map", &Dir, FA_ARCH|FA_RDONLY);
-     while (!done)
-     {
-       File = New_filename(File, &Files);
-       File[Files-1].S = new char[strlen(Dir.ff_name)+1];
-       memset(File[Files-1].S, 0, strlen(Dir.ff_name)+1);
-       strcpy(File[Files-1].S, Dir.ff_name);
-       done = findnext(&Dir);
+     mapFilenames.clear();
+
+     DIR dirStream = opendir(".");
+     struct dirent* entry = new dirent;
+     struct dirent* next;
+
+     readdir_r(&dirStream, entry, &next);
+     while (next) {
+         string filename(next->d_name);
+         string extension(".map");
+
+         bool isMapFile = false;
+         if(filename.length() > extension.length()) {
+             size_t extPos = filename.length() - extension.length();
+             string end = filename.substr(extPos);
+             for(size_t i = 0; i < end.length(); i++) {
+                 end[i] = toupper(end[i]);
+             }
+
+             isMapFile = (end == extension);
+         }
+
+         if(isMapFile) {
+             mapFilenames.push_back(filename);
+         }
+
+         readdir_r(&dirStream, entry, &next);
      }
+
+     delete entry;
  } // void Searchfiles()
 
 void Burntitle(BITMAP * bmp)
@@ -247,7 +230,7 @@ void Menutexts()
      if (Mousein((SCREEN_X>>1)-(Length), 220, (SCREEN_X>>1)+(Length>>1), 240))
       if (Mob==0) if (Moldb==1)
        {
-         if (Opt->Fileselected >= 0) if (Opt->Fileselected < Files)
+           if (Opt->Fileselected >= 0) if (Opt->Fileselected < mapFilenames.size())
           {
            Done = false;
            Game();
@@ -286,8 +269,8 @@ void Menutexts()
        } //       if (Mousein((SCREEN_X>>1)-(Length), 220, (SCREEN_X>>1)+(Length>>1), 240))     if (Mob==0) if (Moldb==1)
       s = new char[40];memset(s, 0, 40);
       strcpy(s, "Map: ");
-      if (Opt->Fileselected>=0) if (Opt->Fileselected < Files)
-       strcat(s, File[Opt->Fileselected].S);
+      if (Opt->Fileselected>=0) if (Opt->Fileselected < mapFilenames.size())
+      strcat(s, mapFilenames[Opt->Fileselected].c_str());
       Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
       textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s, SCREEN_X>>1, 250, -1);
       if (Mousein((SCREEN_X>>1)-(Length), 250, (SCREEN_X>>1)+(Length>>1), 270))     if (Mob==0) if (Moldb==1)
@@ -325,9 +308,9 @@ void Menutexts()
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s, SCREEN_X>>1, 180, -1);
       if (Mousein((SCREEN_X>>1)-(Length), 180, (SCREEN_X>>1)+(Length>>1), 205))     if (Mob==0) if (Moldb==1)
        Curmenu = 1;
-      for (int i = 0; i < 8; i++) if (Filescroll+i < Files) if (Filescroll+i>=0)
+      for (int i = 0; i < 8; i++) if (Filescroll+i < mapFilenames.size()) if (Filescroll+i>=0)
        {
-        s = File[Filescroll+i].S;
+        s = mapFilenames[Filescroll+i].c_str();
         Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s, SCREEN_X>>1, 215+i*20, -1);
         if (Mousein((SCREEN_X>>1)-(Length), 220+i*20, (SCREEN_X>>1)+(Length>>1), 238+i*20))
@@ -824,7 +807,7 @@ void Game()
 
     clear(Scr);
     Upscr();
-    Load(File[Opt->Fileselected].S);          // engine.h // Lataa kartan
+    Load(mapFilenames[Opt->Fileselected].c_str());  // engine.h // Lataa kartan
     Format();
     Createparallax();
 
