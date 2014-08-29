@@ -91,7 +91,7 @@ void Defaults()                 // Options asetusten resetointi
  } // Defaults
 void main()
  {
-   if (__file_exists("Options.cfg")) Loadoptions(); else {Defaults();}
+     if (file_exists("Options.cfg", 0, 0)) Loadoptions(); else {Defaults();}
    printf("\nVolcano 2 setup");
    printf("\nDo you want sounds:");
    printf("\n1 - yes\n2 - no");

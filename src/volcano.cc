@@ -116,7 +116,7 @@ void main(int Argc, char ** Args)
    InitAllegro(); // Allegro hyrräämään
 
    Sayhello();    // Terve
-   if (__file_exists("Options.cfg")) Loadoptions(); else {Defaults();}
+   if (file_exists("Options.cfg", 0, 0)) Loadoptions(); else {Defaults();}
 
    if (Opt->Sound) Init_Music(); // Lataa module
    printf ("\nPress any key to continue");
