@@ -5,7 +5,13 @@
 */
 
 unsigned _stklen = 16834*1024;
-#include "lotlib.h" // Useat vakiokirjastot
+
+#include <stdlib.h>
+#include <unistd.h>
+#include <math.h>
+#include <string.h>
+#include <stdio.h>
+#include <time.h>
 #include <allegro.h>
 #include <mikmod.h>
 #include <dir.h>
