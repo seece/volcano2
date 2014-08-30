@@ -205,14 +205,15 @@ void Invertbmp(BITMAP * bmp)
 
 void InitGraph()
 {
-    if (set_gfx_mode(GFX_AUTODETECT, SCREEN_X, SCREEN_Y, 0, 0) < 0)
+    int modeRequested = GFX_AUTODETECT_WINDOWED;
+    if (set_gfx_mode(modeRequested, SCREEN_X, SCREEN_Y, 0, 0) < 0)
     {
         printf("\nCurrent resolution not supported!\nChanging to 640x480");
         fflush(stdout);
         readkey();
         SCREEN_X = 640;
         SCREEN_Y = 480;
-        set_gfx_mode(GFX_AUTODETECT, SCREEN_X, SCREEN_Y, 0, 0);
+        set_gfx_mode(modeRequested, SCREEN_X, SCREEN_Y, 0, 0);
     } //     if (set_gfx_mode(GFX_AUTODETECT, SCREEN_X, SCREEN_Y, 0, 0) < 0)
     Scr = create_bitmap(SCREEN_W, SCREEN_H);
     clear(Scr);
