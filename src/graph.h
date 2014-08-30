@@ -219,8 +219,6 @@ void InitGraph()
     text_mode(-1);
 
     set_palette((PALETTE)Dat[DATPALETTE].dat);
-    PALLETE pal;
-    PALETTE Pal;
     create_trans_table(&rgb_table, (PALETTE)Dat[DATPALETTE].dat, 192, 192, 192, NULL);
     create_light_table(&light_table, (PALETTE)Dat[DATPALETTE].dat, 255, 255, 255, NULL);
     color_map = &rgb_table;
