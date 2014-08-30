@@ -189,9 +189,9 @@ void Bot_change_clip(int i)
                         if (Md->Bot[i].Y>>16 < (Md->Pl[i2].Y BitR) + (Clipy>>1))
                             Found = true;
         if (Found)
-            Playsample(Reloadsample[Md->Bot[i].Item], Opt->Soundvolume, 128, 0);
+            Playsample(Reloadsample[Md->Bot[i].Item], Opt->sound.Soundvolume, 128, 0);
         else
-            Playsample(Reloadsample[Md->Bot[i].Item], Opt->Soundvolume>>1, 128, 0);
+            Playsample(Reloadsample[Md->Bot[i].Item], Opt->sound.Soundvolume>>1, 128, 0);
     } // if (Reloadsample[Md->Bot[i].Item] > -1)
     Md->Bot[i].Ammo= Clipsize[Md->Bot[i].Item]-1;
     // latausaikaa
@@ -231,9 +231,9 @@ void Bot_use_pistol(int i)
                             if (Md->Bot[i].Y>>16 < (Md->Pl[i2].Y BitR) + (Clipy>>1))
                                 Found = true;
             if (Found)
-                Playsample(SAMP_PISTOL, Opt->Soundvolume, 128, 0);
+                Playsample(SAMP_PISTOL, Opt->sound.Soundvolume, 128, 0);
             else
-                Playsample(SAMP_PISTOL, Opt->Soundvolume>>1, 128, 0);
+                Playsample(SAMP_PISTOL, Opt->sound.Soundvolume>>1, 128, 0);
             // latausaika
             Md->Bot[i].Reload = 80;
             // ja tärinä
@@ -275,9 +275,9 @@ void Bot_use_sniperrifle(int i)
                             if (Md->Bot[i].Y>>16 < (Md->Pl[i2].Y BitR) + (Clipy>>1))
                                 Found = true;
             if (Found)
-                Playsample(SAMP_SNIPER, Opt->Soundvolume, 128, 0);
+                Playsample(SAMP_SNIPER, Opt->sound.Soundvolume, 128, 0);
             else
-                Playsample(SAMP_SNIPER, Opt->Soundvolume>>1, 128, 0);
+                Playsample(SAMP_SNIPER, Opt->sound.Soundvolume>>1, 128, 0);
         } //  if (Md->Bot[i].Ammo[Weaponclip[Md->Bot[i].Item]] % Clipsize[Md->Bot[i].Item] == 0) Change_clip(i); else
     } // (Md->Bot[i].Reload == 0)
 } // Use_sniperrifle(int i)
@@ -314,9 +314,9 @@ void Bot_use_magnum(int i)
                             if (Md->Bot[i].Y>>16 < (Md->Pl[i2].Y BitR) + (Clipy>>1))
                                 Found = true;
             if (Found)
-                Playsample(SAMP_MAGNUM, Opt->Soundvolume, 128, 0);
+                Playsample(SAMP_MAGNUM, Opt->sound.Soundvolume, 128, 0);
             else
-                Playsample(SAMP_MAGNUM, Opt->Soundvolume>>1, 128, 0);
+                Playsample(SAMP_MAGNUM, Opt->sound.Soundvolume>>1, 128, 0);
             // latausaika
             Md->Bot[i].Reload = 110;
             // ja tärinä
@@ -343,9 +343,9 @@ void Bot_use_shotgun(int i)
                         if (Md->Bot[i].Y>>16 < (Md->Pl[i2].Y BitR) + (Clipy>>1))
                             Found = true;
         if (Found)
-            Playsample(SAMP_SHOTGUN, Opt->Soundvolume, 128, 0);
+            Playsample(SAMP_SHOTGUN, Opt->sound.Soundvolume, 128, 0);
         else
-            Playsample(SAMP_SHOTGUN, Opt->Soundvolume>>1, 128, 0);
+            Playsample(SAMP_SHOTGUN, Opt->sound.Soundvolume>>1, 128, 0);
         // hylsy
         Shoot(BUL_SHOTGUNSHELL, Md->Bot[i].X, Md->Bot[i].Y, -3000+rand()%6000, -8000+rand()%1000);
         // panos
@@ -392,9 +392,9 @@ void Bot_use_machinegun(int i)
                             if (Md->Bot[i].Y>>16 < (Md->Pl[i2].Y BitR) + (Clipy>>1))
                                 Found = true;
             if (Found)
-                Playsample(SAMP_MACHINEGUN, (Opt->Soundvolume>>1), 128, 0);
+                Playsample(SAMP_MACHINEGUN, (Opt->sound.Soundvolume>>1), 128, 0);
             else
-                Playsample(SAMP_MACHINEGUN, (Opt->Soundvolume>>2), 128, 0);
+                Playsample(SAMP_MACHINEGUN, (Opt->sound.Soundvolume>>2), 128, 0);
             // latausaika
             Md->Bot[i].Reload = 130;
             // tärinä
@@ -462,9 +462,9 @@ void Bot_use_laserrifle(int i)
                             if (Md->Bot[i].Y>>16 < (Md->Pl[i2].Y BitR) + (Clipy>>1))
                                 Found = true;
             if (Found)
-                Playsample(SAMP_LASER, Opt->Soundvolume, 128, 0);
+                Playsample(SAMP_LASER, Opt->sound.Soundvolume, 128, 0);
             else
-                Playsample(SAMP_LASER, Opt->Soundvolume>>1, 128, 0);
+                Playsample(SAMP_LASER, Opt->sound.Soundvolume>>1, 128, 0);
             Md->Bot[i].Ammo--;
             Md->Bot[i].Gunfire = 30;
             Md->Bot[i].Reload = 30;
@@ -491,9 +491,9 @@ void Bot_use_bazooka(int i)
                         if (Md->Bot[i].Y>>16 < (Md->Pl[i2].Y BitR) + (Clipy>>1))
                             Found = true;
         if (Found)
-            Playsample(SAMP_ROCKET, Opt->Soundvolume, 128, 0);
+            Playsample(SAMP_ROCKET, Opt->sound.Soundvolume, 128, 0);
         else
-            Playsample(SAMP_ROCKET, Opt->Soundvolume>>1, 128, 0);
+            Playsample(SAMP_ROCKET, Opt->sound.Soundvolume>>1, 128, 0);
 
         Shoot(BUL_ROCKET, Md->Bot[i].X, Md->Bot[i].Y, fcos(Md->Bot[i].Dir)*6-5000+rand()%10000, fsin(Md->Bot[i].Dir)*6-5000+rand()%10000,ITEM_BAZOOKA,i,1, Md->Bot[i].Dir);
         // latausaika
@@ -520,9 +520,9 @@ void Bot_use_homingmissilelauncher(int i)
                         if (Md->Bot[i].Y>>16 < (Md->Pl[i2].Y BitR) + (Clipy>>1))
                             Found = true;
         if (Found)
-            Playsample(SAMP_ROCKET, Opt->Soundvolume, 128, 0);
+            Playsample(SAMP_ROCKET, Opt->sound.Soundvolume, 128, 0);
         else
-            Playsample(SAMP_ROCKET, Opt->Soundvolume>>1, 128, 0);
+            Playsample(SAMP_ROCKET, Opt->sound.Soundvolume>>1, 128, 0);
         Shoot(BUL_ROCKET, Md->Bot[i].X, Md->Bot[i].Y, fcos(Md->Bot[i].Dir)*2-5000+rand()%10000, fsin(Md->Bot[i].Dir)*2-5000+rand()%10000,ITEM_HMISLAUNCHER,i,1, Md->Bot[i].Dir);
         // latausaika
         Md->Bot[i].Reload = 400;
@@ -555,9 +555,9 @@ void Bot_use_plasmapistol(int i)
                             if (Md->Bot[i].Y>>16 < (Md->Pl[i2].Y BitR) + (Clipy>>1))
                                 Found = true;
             if (Found)
-                Playsample(SAMP_PLASMA, Opt->Soundvolume, 128, 0);
+                Playsample(SAMP_PLASMA, Opt->sound.Soundvolume, 128, 0);
             else
-                Playsample(SAMP_PLASMA, Opt->Soundvolume>>1, 128, 0);
+                Playsample(SAMP_PLASMA, Opt->sound.Soundvolume>>1, 128, 0);
             // latausaika
             Md->Bot[i].Reload = 200;
             // ja tärinä

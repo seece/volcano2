@@ -1,5 +1,5 @@
 CXX=g++
-CXXFLAGS=
+CXXFLAGS=-Wall -Wno-write-strings
 LDFLAGS=
 LDLIBS=
 

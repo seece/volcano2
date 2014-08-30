@@ -136,13 +136,13 @@ void main(int Argc, char ** Args)
         Defaults();
     }
 
-    if (Opt->sound->Sound) Init_Music(&Opt->sound); // Lataa module
+    if (Opt->sound.Sound) Init_Music(); // Lataa module
     printf ("\nPress any key to continue");
     fflush(stdout);
     readkey();
     fade_out (4);
 
-    if (Opt->sound->Sound) Loadsamples();// Lataa samplet
+    if (Opt->sound.Sound) Loadsamples();// Lataa samplet
 
     InitData();   // Lataa graffat paletit ja muuta kivaa
     SCREEN_X = Opt->Xres;
@@ -152,8 +152,8 @@ void main(int Argc, char ** Args)
 
     Menu();
     Saveoptions();
-    if (Opt->sound->Sound) Free_sounds();  // Vapautetaan samplet
-    if (Opt->sound->Sound) DeInit_Music(); // Vapautetaan musat
+    if (Opt->sound.Sound) Free_sounds();  // Vapautetaan samplet
+    if (Opt->sound.Sound) DeInit_Music(); // Vapautetaan musat
     DeInitEngine(); // Vapautetaan mootorin muistinvaraukset
     DeInitGraph();  // Graffatila pois ja tekstitila päälle
     DeInitData();   // Vapautetaan vielä vähän muistia
@@ -912,12 +912,14 @@ void Game()
         if (Quit > 200) Done = true;
 
     } while (Done == false);
+    // TODO Replace with this fadeout with something else later.
+    /*
     do
     {
         mp_volume--;
         vsync();
         vsync();
-    } while (mp_volume>0);
+    } while (mp_volume>0); */
     if (Opt->Gametype == GAMETYPE_BOTHUNT)
     {
         fade_out(4);

@@ -43,7 +43,7 @@ void Loadoptions()
 void Defaults()                 // Options asetusten resetointi
 {
     Opt->Musicvolume = 50;    // ääntä
-    Opt->Soundvolume = 100;
+    Opt->sound.Soundvolume = 100;
     Opt->Sndfreq = 44100;     // Laatua
     Opt->Bits16 = true;       // 16Bittinen tottakai
     Opt->Interpolated = true; // interpoloitu

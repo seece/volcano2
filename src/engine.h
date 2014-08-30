@@ -1317,13 +1317,13 @@ void Fall_damage(int i)
             switch(Rand()%3)
             {
             case 0:
-                Playsample(SAMP_FLESH1, Opt->Soundvolume*2, 128);
+                Playsample(SAMP_FLESH1, Opt->sound.Soundvolume*2, 128);
                 break; // Läts
             case 1:
-                Playsample(SAMP_FLESH2, Opt->Soundvolume*2, 128);
+                Playsample(SAMP_FLESH2, Opt->sound.Soundvolume*2, 128);
                 break; // Löts
             case 2:
-                Playsample(SAMP_FLESH3, Opt->Soundvolume*2, 128);
+                Playsample(SAMP_FLESH3, Opt->sound.Soundvolume*2, 128);
                 break;
             }; // Rand sound
 } // void Fall_damage(int i)
@@ -1766,17 +1766,17 @@ void Hurteverybody(int X,int Y, int Ownertype, int Owner)
                     switch(Hit)
                     {   // Lits
                     case 1:
-                        Playsample(SAMP_FLESH1, Opt->Soundvolume*2, 128);
+                        Playsample(SAMP_FLESH1, Opt->sound.Soundvolume*2, 128);
                         Md->Pl[i2].Mx += 50000 >> 3; // iso tönäsy
                         Md->Pl[i2].My += 50000 >> 3;
                         break; // Läts
                     case 2:
-                        Playsample(SAMP_FLESH2, Opt->Soundvolume*2, 128);
+                        Playsample(SAMP_FLESH2, Opt->sound.Soundvolume*2, 128);
                         Md->Pl[i2].Mx += 50000 >> 4; // tönäsy
                         Md->Pl[i2].My += 50000 >> 4;
                         break; // Löts
                     case 3:
-                        Playsample(SAMP_FLESH3, Opt->Soundvolume*2, 128);
+                        Playsample(SAMP_FLESH3, Opt->sound.Soundvolume*2, 128);
                         Md->Pl[i2].Mx += 50000 >> 5; // pikku tönäsy
                         Md->Pl[i2].My += 50000 >> 5;
                         break;
@@ -1819,17 +1819,17 @@ void Hurteverybody(int X,int Y, int Ownertype, int Owner)
                 switch(Hit)
                 {   // Lits
                 case 1:
-                    Playsample(SAMP_FLESH1, Opt->Soundvolume*2, 128);
+                    Playsample(SAMP_FLESH1, Opt->sound.Soundvolume*2, 128);
                     Md->Bot[i2].Mx += 50000 >> 3; // iso tönäsy
                     Md->Bot[i2].My += 50000 >> 3;
                     break; // Läts
                 case 2:
-                    Playsample(SAMP_FLESH2, Opt->Soundvolume*2, 128);
+                    Playsample(SAMP_FLESH2, Opt->sound.Soundvolume*2, 128);
                     Md->Bot[i2].Mx += 50000 >> 4; // tönäsy
                     Md->Bot[i2].My += 50000 >> 4;
                     break; // Löts
                 case 3:
-                    Playsample(SAMP_FLESH3, Opt->Soundvolume*2, 128);
+                    Playsample(SAMP_FLESH3, Opt->sound.Soundvolume*2, 128);
                     Md->Bot[i2].Mx += 50000 >> 5; // pikku tönäsy
                     Md->Bot[i2].My += 50000 >> 5;
                     break;
@@ -1855,7 +1855,7 @@ void Laser_sabre_kimpoaminen(int i)
                             Md->Bul[i3].Y = Md->Bul[i3].Oy;
                             Md->Bul[i3].Mx = -Md->Bul[i3].Mx - 5000 + rand()%10001;
                             Md->Bul[i3].My = -Md->Bul[i3].My - 5000 + rand()%10001;
-                            Playsample(SAMP_BOUNCE1, int(Opt->Soundvolume*(50+Rand()%50)/100), 128, 5050+Rand()%20000);
+                            Playsample(SAMP_BOUNCE1, int(Opt->sound.Soundvolume*(50+Rand()%50)/100), 128, 5050+Rand()%20000);
                         } //        if (Delta(Md->Bul[i3].X BitR, X) < 3)        if (Delta(Md->Bul[i3].Y BitR, Y) < 3)
                 } //     for (int i3 = 0; i3 < Maxbullets; i3++)     if (Md->Bul[i3].Live)
     } // for (int i2 = 0; i2 < 10; i2++)
@@ -1872,7 +1872,7 @@ void Laser_cannon_action(int i)
         if (Md->Pl[i].Actionvar[1] == 0)
         {
             Md->Pl[i].Action = 0;
-            Playsample(SAMP_PLASMA, Opt->Soundvolume, 128, 0);
+            Playsample(SAMP_PLASMA, Opt->sound.Soundvolume, 128, 0);
             Md->Pl[i].Mx += fcos(Suunta(Md->Pl[i].Dir-itofix(128)));
             Md->Pl[i].My += fsin(Suunta(Md->Pl[i].Dir-itofix(128)));
             Shoot(BUL_BIGLASER, Md->Pl[i].X, Md->Pl[i].Y, fcos(Md->Pl[i].Dir)-10000+rand()%20000, fsin(Md->Pl[i].Dir)-10000+rand()%20000,ITEM_LASERCANNON,i,0);
@@ -2265,9 +2265,9 @@ void Kill_player(int i, int weapon, int Killer, char killertype)
     if (Md->Pl[i].Stuff[ITEM_SELFDESTRUCTOR])
         Use_selfdestructor(i);
     int r;
-    Playsample(SAMP_FLESH1, Opt->Soundvolume*2, 64);
-    Playsample(SAMP_FLESH2, Opt->Soundvolume*2, 128);
-    Playsample(SAMP_FLESH3, Opt->Soundvolume*2, 192);
+    Playsample(SAMP_FLESH1, Opt->sound.Soundvolume*2, 64);
+    Playsample(SAMP_FLESH2, Opt->sound.Soundvolume*2, 128);
+    Playsample(SAMP_FLESH3, Opt->sound.Soundvolume*2, 192);
     if (Md->Pl[i].Anim != ANI_PLASMADEATH)
     {
         if (Md->Pl[i].Live) Md->Pl[i].Died++;
@@ -2459,9 +2459,9 @@ void Kill_bot(int i, int weapon, int Killer, char killertype)
     if (Md->Bot[i].Anim != ANI_PLASMADEATH)
     {
         // tarvitaan siihen ettei lennä kahta ruumista
-        Playsample(SAMP_FLESH1, Opt->Soundvolume*2, 64);
-        Playsample(SAMP_FLESH2, Opt->Soundvolume*2, 128);
-        Playsample(SAMP_FLESH3, Opt->Soundvolume*2, 192);
+        Playsample(SAMP_FLESH1, Opt->sound.Soundvolume*2, 64);
+        Playsample(SAMP_FLESH2, Opt->sound.Soundvolume*2, 128);
+        Playsample(SAMP_FLESH3, Opt->sound.Soundvolume*2, 192);
         if (Md->Bot[i].Live)
             if (killertype == 0) if (Killer>=0) // Jos tappaja onkin pelaaja niin kill counteria plussataan
                     Md->Pl[Killer].Botskilled++;
@@ -2842,9 +2842,9 @@ void Update_pistol(int i, int X, int Y)
             if (Dirtsample == false)
             {
                 if (Found) // Jos on playereiden ruudussa niin soi kovempaa
-                    Playsample(SAMP_DIRT1, Opt->Soundvolume>>1, 128);
+                    Playsample(SAMP_DIRT1, Opt->sound.Soundvolume>>1, 128);
                 else;
-                Playsample(SAMP_DIRT1, int(Opt->Soundvolume/1.5), 128);
+                Playsample(SAMP_DIRT1, int(Opt->sound.Soundvolume/1.5), 128);
                 Dirtsample = true;
             } // Dirtsample == false
 
@@ -2855,7 +2855,7 @@ void Update_pistol(int i, int X, int Y)
     if ((apu >= 121) && (apu <= 143)) // kallioon osuminen
     {
         if (Rand()%5==0) // kimpoaminen, ääni saadaan taajuutta vaihtamalla
-            Playsample(SAMP_BOUNCE1, int(Opt->Soundvolume*(50+Rand()%50)/100), 128, 5050+Rand()%20000);
+            Playsample(SAMP_BOUNCE1, int(Opt->sound.Soundvolume*(50+Rand()%50)/100), 128, 5050+Rand()%20000);
         if (Md->Bul[i].Dat[1]) Md->Bul[i].Live = false; // jos kiven sisällä
         Md->Bul[i].Dat[1]++; // "kiven sisällä" countteri
         if (Md->Bul[i].Mx > 0) // kimpo x
@@ -2935,17 +2935,17 @@ void Update_pistol(int i, int X, int Y)
                     switch(Hit)
                     {   // Lits
                     case 1:
-                        Playsample(SAMP_FLESH1, Opt->Soundvolume*2, 128);
+                        Playsample(SAMP_FLESH1, Opt->sound.Soundvolume*2, 128);
                         Md->Pl[i2].Mx += Md->Bul[i].Mx >> 3; // iso tönäsy
                         Md->Pl[i2].My += Md->Bul[i].My >> 3;
                         break; // Läts
                     case 2:
-                        Playsample(SAMP_FLESH2, Opt->Soundvolume*2, 128);
+                        Playsample(SAMP_FLESH2, Opt->sound.Soundvolume*2, 128);
                         Md->Pl[i2].Mx += Md->Bul[i].Mx >> 4; // tönäsy
                         Md->Pl[i2].My += Md->Bul[i].My >> 4;
                         break; // Löts
                     case 3:
-                        Playsample(SAMP_FLESH3, Opt->Soundvolume*2, 128);
+                        Playsample(SAMP_FLESH3, Opt->sound.Soundvolume*2, 128);
                         Md->Pl[i2].Mx += Md->Bul[i].Mx >> 5; // pikku tönäsy
                         Md->Pl[i2].My += Md->Bul[i].My >> 5;
                         break;
@@ -2990,17 +2990,17 @@ void Update_pistol(int i, int X, int Y)
                     switch(Hit)
                     {   // Lits
                     case 1:
-                        Playsample(SAMP_FLESH1, Opt->Soundvolume*2, 128);
+                        Playsample(SAMP_FLESH1, Opt->sound.Soundvolume*2, 128);
                         Md->Bot[i2].Mx += Md->Bul[i].Mx >> 3; // iso tönäsy
                         Md->Bot[i2].My += Md->Bul[i].My >> 3;
                         break; // Läts
                     case 2:
-                        Playsample(SAMP_FLESH2, Opt->Soundvolume*2, 128);
+                        Playsample(SAMP_FLESH2, Opt->sound.Soundvolume*2, 128);
                         Md->Bot[i2].Mx += Md->Bul[i].Mx >> 4; // tönäsy
                         Md->Bot[i2].My += Md->Bul[i].My >> 4;
                         break; // Löts
                     case 3:
-                        Playsample(SAMP_FLESH3, Opt->Soundvolume*2, 128);
+                        Playsample(SAMP_FLESH3, Opt->sound.Soundvolume*2, 128);
                         Md->Bot[i2].Mx += Md->Bul[i].Mx >> 5; // pikku tönäsy
                         Md->Bot[i2].My += Md->Bul[i].My >> 5;
                         break;
@@ -3192,9 +3192,9 @@ void Update_bulletshell(int i, int X, int Y)
                         if (Y < (Md->Pl[i2].Y BitR) + (Clipy>>1))
                             Found = true;
         if (Found) // Jos on playereiden ruudussa niin soi kovempaa
-            Playsample(SAMP_EMPTYSHELL, int(Opt->Soundvolume*(50+Rand()%50)/200), 128);
+            Playsample(SAMP_EMPTYSHELL, int(Opt->sound.Soundvolume*(50+Rand()%50)/200), 128);
         else
-            Playsample(SAMP_EMPTYSHELL, int(Opt->Soundvolume*(50+Rand()%50)/250), 128);
+            Playsample(SAMP_EMPTYSHELL, int(Opt->sound.Soundvolume*(50+Rand()%50)/250), 128);
         Md->Bul[i].Live = false;
     } // if (getpixel(Md->Map, X, Y))
 } // void Update_bulletshell(int i, int X, int Y)
@@ -3433,17 +3433,17 @@ void Update_plasma(int i, int X, int Y)
                     switch(Hit)
                     {   // Lits
                     case 1:
-                        Playsample(SAMP_FLESH1, Opt->Soundvolume*2, 128);
+                        Playsample(SAMP_FLESH1, Opt->sound.Soundvolume*2, 128);
                         Md->Pl[i2].Mx += Md->Bul[i].Mx >> 3; // iso tönäsy
                         Md->Pl[i2].My += Md->Bul[i].My >> 3;
                         break; // Läts
                     case 2:
-                        Playsample(SAMP_FLESH2, Opt->Soundvolume*2, 128);
+                        Playsample(SAMP_FLESH2, Opt->sound.Soundvolume*2, 128);
                         Md->Pl[i2].Mx += Md->Bul[i].Mx >> 4; // tönäsy
                         Md->Pl[i2].My += Md->Bul[i].My >> 4;
                         break; // Löts
                     case 3:
-                        Playsample(SAMP_FLESH3, Opt->Soundvolume*2, 128);
+                        Playsample(SAMP_FLESH3, Opt->sound.Soundvolume*2, 128);
                         Md->Pl[i2].Mx += Md->Bul[i].Mx >> 5; // pikku tönäsy
                         Md->Pl[i2].My += Md->Bul[i].My >> 5;
                         break;
@@ -3473,17 +3473,17 @@ void Update_plasma(int i, int X, int Y)
                     switch(Hit)
                     {   // Lits
                     case 1:
-                        Playsample(SAMP_FLESH1, Opt->Soundvolume*2, 128);
+                        Playsample(SAMP_FLESH1, Opt->sound.Soundvolume*2, 128);
                         Md->Bot[i2].Mx += Md->Bul[i].Mx >> 3; // iso tönäsy
                         Md->Bot[i2].My += Md->Bul[i].My >> 3;
                         break; // Läts
                     case 2:
-                        Playsample(SAMP_FLESH2, Opt->Soundvolume*2, 128);
+                        Playsample(SAMP_FLESH2, Opt->sound.Soundvolume*2, 128);
                         Md->Bot[i2].Mx += Md->Bul[i].Mx >> 4; // tönäsy
                         Md->Bot[i2].My += Md->Bul[i].My >> 4;
                         break; // Löts
                     case 3:
-                        Playsample(SAMP_FLESH3, Opt->Soundvolume*2, 128);
+                        Playsample(SAMP_FLESH3, Opt->sound.Soundvolume*2, 128);
                         Md->Bot[i2].Mx += Md->Bul[i].Mx >> 5; // pikku tönäsy
                         Md->Bot[i2].My += Md->Bul[i].My >> 5;
                         break;
@@ -4007,9 +4007,9 @@ void Update_explosions()
                     if (Expsample == false) if (Md->Exp[i].Sampled==false)
                         {
                             if (Md->Exp[i].Type != 4)
-                                Playsample(SAMP_EXP1, Opt->Soundvolume, 128, 0);
+                                Playsample(SAMP_EXP1, Opt->sound.Soundvolume, 128, 0);
                             else
-                                Playsample(SAMP_EXP1, Opt->Soundvolume>>2, 128, 0);
+                                Playsample(SAMP_EXP1, Opt->sound.Soundvolume>>2, 128, 0);
 
 
                             Md->Exp[i].Sampled = true;
@@ -6013,11 +6013,13 @@ void Createparallax()
         draw_sprite_vh_flip(Parallax, Apu, (Lev->Mapsizex>>1), (Lev->Mapsizey>>1));
         destroy_bitmap(Apu);
     }
+    // TODO Replace this fadeout with something else later.
+    /*
     do
     {
         mp_volume--;
         for (int i = 0; i < 20; i++) vsync();
-    } while (mp_volume > 0);
+    } while (mp_volume > 0); */
     fade_out(6);
     clear(Scr);
     Upscr();
@@ -6205,7 +6207,7 @@ void Defaults()                 // Options asetusten resetointi
     memset(Opt, 0, sizeof(Toptions));
     Opt->Texturedearth = 2;
     Opt->Musicvolume = 50;    // ääntä
-    Opt->Soundvolume = 100;
+    Opt->sound.Soundvolume = 100;
     Opt->Sndfreq = 44100;     // Laatua
     Opt->Bits16 = true;       // 16Bittinen tottakai
     Opt->Interpolated = true; // interpoloitu

@@ -5,7 +5,7 @@ void Change_clip(int i)
     if (Reloadsample[Md->Pl[i].Item] > -1) // jos lataamisesta kuuluu ääni
     {
         // niin soitetaan ääni
-        Playsample(Reloadsample[Md->Pl[i].Item], Opt->Soundvolume, 128, 0);
+        Playsample(Reloadsample[Md->Pl[i].Item], Opt->sound.Soundvolume, 128, 0);
     } // if (Reloadsample[Md->Pl[i].Item] > -1)
     // vähennetään panoksia
     Md->Pl[i].Ammo[Weaponclip[Md->Pl[i].Item]]--;
@@ -34,7 +34,7 @@ void Use_pistol(int i)
                 // panos
                 Shoot(BUL_PISTOL, Md->Pl[i].X, Md->Pl[i].Y, fcos(Md->Pl[i].Dir)*6-10000+rand()%20000, fsin(Md->Pl[i].Dir)*6-10000+rand()%20000,0,i,0);
                 // pistoolin ääni
-                Playsample(SAMP_PISTOL, Opt->Soundvolume, 128, 0);
+                Playsample(SAMP_PISTOL, Opt->sound.Soundvolume, 128, 0);
                 // latausaika
                 Md->Pl[i].Reload = 80;
                 // ja tärinä
@@ -64,7 +64,7 @@ void Use_bigmachinegun(int i)
                 // panos
                 Shoot(BUL_PISTOL, Md->Pl[i].X, Md->Pl[i].Y, fcos(Md->Pl[i].Dir)*6-20000+rand()%40000, fsin(Md->Pl[i].Dir)*6-20000+rand()%40000,ITEM_BIGMACHINEGUN,i,0);
                 // pistoolin ääni
-                Playsample(SAMP_BIGMACHINEGUN, Opt->Soundvolume, 128, 0);
+                Playsample(SAMP_BIGMACHINEGUN, Opt->sound.Soundvolume, 128, 0);
                 // latausaika
                 Md->Pl[i].Reload = 30;
                 // ja tärinä
@@ -90,7 +90,7 @@ void Use_machinegun(int i)
                 // hylsy
                 Shoot(BUL_BULLETSHELL, Md->Pl[i].X, Md->Pl[i].Y, -3000+rand()%6000, -8000+rand()%1000);
                 // takataka-ääni
-                Playsample(SAMP_MACHINEGUN, (Opt->Soundvolume>>1), 128, 0);
+                Playsample(SAMP_MACHINEGUN, (Opt->sound.Soundvolume>>1), 128, 0);
                 // latausaika
                 Md->Pl[i].Reload = 130;
                 // tärinä
@@ -177,7 +177,7 @@ void Use_shotgun(int i)
                 Md->Pl[i].Gunfire = 5;
                 // panoksia pois
                 Md->Pl[i].Ammo[Weaponclip[Md->Pl[i].Item]] -- ;
-                Playsample(SAMP_SHOTGUN, Opt->Soundvolume, 128, 0);
+                Playsample(SAMP_SHOTGUN, Opt->sound.Soundvolume, 128, 0);
                 // hylsy
                 Shoot(BUL_SHOTGUNSHELL, Md->Pl[i].X, Md->Pl[i].Y, -3000+rand()%6000, -8000+rand()%1000);
                 // panos
@@ -217,7 +217,7 @@ void Use_magnum(int i)
                 Md->Pl[i].Gunfire = 5;
                 // panoksia pois
                 Md->Pl[i].Ammo[Weaponclip[Md->Pl[i].Item]] -- ;
-                Playsample(SAMP_MAGNUM, Opt->Soundvolume, 128, 0);
+                Playsample(SAMP_MAGNUM, Opt->sound.Soundvolume, 128, 0);
 
                 // hylsy
                 Shoot(BUL_BULLETSHELL, Md->Pl[i].X, Md->Pl[i].Y, -3000+rand()%6000, -8000+rand()%1000);
@@ -255,7 +255,7 @@ void Use_bazooka(int i)
                 Md->Pl[i].Ammo[Weaponclip[Md->Pl[i].Item]]--;
                 // panos
                 Md->Pl[i].Gunfire = 30;
-                Playsample(SAMP_ROCKET, Opt->Soundvolume, 128, 0);
+                Playsample(SAMP_ROCKET, Opt->sound.Soundvolume, 128, 0);
 
                 Md->Pl[i].Mx += fcos(Suunta(Md->Pl[i].Dir-itofix(128)));
                 Md->Pl[i].My += fsin(Suunta(Md->Pl[i].Dir-itofix(128)));
@@ -281,7 +281,7 @@ void Use_homingmissilelauncher(int i)
                 Md->Pl[i].Ammo[Weaponclip[Md->Pl[i].Item]]--;
                 // panos
                 Md->Pl[i].Gunfire = 30;
-                Playsample(SAMP_ROCKET, Opt->Soundvolume, 128, 0);
+                Playsample(SAMP_ROCKET, Opt->sound.Soundvolume, 128, 0);
                 Md->Pl[i].Mx += fcos(Suunta(Md->Pl[i].Dir-itofix(128)))>>1;
                 Md->Pl[i].My += fsin(Suunta(Md->Pl[i].Dir-itofix(128)))>>1;
 
@@ -305,7 +305,7 @@ void Use_laserrifle(int i)
             {
                 // muuten ammu
                 // panoksia pois
-                Playsample(SAMP_LASER, Opt->Soundvolume, 128, 0);
+                Playsample(SAMP_LASER, Opt->sound.Soundvolume, 128, 0);
 
                 Md->Pl[i].Ammo[Weaponclip[Md->Pl[i].Item]]--;
                 Md->Pl[i].Gunfire = 30;
@@ -370,13 +370,13 @@ void Hit(int X, int Y, int killer, int killertype)
                     switch(Hit)
                     {   // Lits
                     case 1:
-                        Playsample(SAMP_FLESH1, Opt->Soundvolume*2, 128);
+                        Playsample(SAMP_FLESH1, Opt->sound.Soundvolume*2, 128);
                         break; // Läts
                     case 2:
-                        Playsample(SAMP_FLESH2, Opt->Soundvolume*2, 128);
+                        Playsample(SAMP_FLESH2, Opt->sound.Soundvolume*2, 128);
                         break; // Löts
                     case 3:
-                        Playsample(SAMP_FLESH3, Opt->Soundvolume*2, 128);
+                        Playsample(SAMP_FLESH3, Opt->sound.Soundvolume*2, 128);
                         break;
                     };
 
@@ -432,13 +432,13 @@ void Hit(int X, int Y, int killer, int killertype)
                 switch(Hit)
                 {   // Lits
                 case 1:
-                    Playsample(SAMP_FLESH1, Opt->Soundvolume*2, 128);
+                    Playsample(SAMP_FLESH1, Opt->sound.Soundvolume*2, 128);
                     break; // Läts
                 case 2:
-                    Playsample(SAMP_FLESH2, Opt->Soundvolume*2, 128);
+                    Playsample(SAMP_FLESH2, Opt->sound.Soundvolume*2, 128);
                     break; // Löts
                 case 3:
-                    Playsample(SAMP_FLESH3, Opt->Soundvolume*2, 128);
+                    Playsample(SAMP_FLESH3, Opt->sound.Soundvolume*2, 128);
                     break;
                 };
         } //      for (int i2 = 0; i2 < Opt->Players; i2++)
@@ -453,7 +453,7 @@ void Use_pickaxe(int i)
         int Y = (Md->Pl[i].Y+(fsin(Md->Pl[i].Dir)<<3))>>16;
         BITMAP * bmp = (BITMAP*) Dat[DATLASER04].dat;
         Emptypic(bmp, X-(bmp->w>>1), Y-(bmp->h>>1), 0, 0);
-        Playsample(SAMP_DIRT1, Opt->Soundvolume>>1, 128);
+        Playsample(SAMP_DIRT1, Opt->sound.Soundvolume>>1, 128);
         Shoot(BUL_DIRT, (X<<16)+(itofix(-1+Rand()%3)), (Y<<16)+(itofix(-1+Rand()%3)), fcos(itofix(Suunta(160+Rand()%65)))>>2, fsin(itofix(Suunta(160+Rand()%65)))>>2);
         Hit(X, Y, i, 0);
 
@@ -475,7 +475,7 @@ void Use_drill(int i)
         Md->Pl[i].Playsamplecounter++;
         if (Md->Pl[i].Playsamplecounter%3==0)
         {
-            Playsample(SAMP_DIRT1, Opt->Soundvolume>>1, 128);
+            Playsample(SAMP_DIRT1, Opt->sound.Soundvolume>>1, 128);
             if (Distance_from_surface(i) < 10)
             {
                 Md->Pl[i].Mx = Md->Pl[i].Mx >> 1;
@@ -516,7 +516,7 @@ void Use_plasmapistol(int i)
                 // panos
                 Shoot(BUL_PLASMA, Md->Pl[i].X, Md->Pl[i].Y, fcos(Md->Pl[i].Dir)*6-20000+rand()%40000, fsin(Md->Pl[i].Dir)*6-20000+rand()%40000,ITEM_PLASMAPISTOL,i,0);
                 // pistoolin ääni
-                Playsample(SAMP_PLASMA, Opt->Soundvolume, 128, 0);
+                Playsample(SAMP_PLASMA, Opt->sound.Soundvolume, 128, 0);
                 // latausaika
                 Md->Pl[i].Reload = 200;
                 // ja tärinä
@@ -540,7 +540,7 @@ void Use_heavyplasma(int i)
                 // panos
                 Shoot(BUL_PLASMA, Md->Pl[i].X, Md->Pl[i].Y, fcos(Md->Pl[i].Dir)*6-40000+rand()%80000, fsin(Md->Pl[i].Dir)*6-40000+rand()%80000,ITEM_HEAVYPLASMA,i,0);
                 // pistoolin ääni
-                Playsample(SAMP_PLASMA, Opt->Soundvolume, 96, 0);
+                Playsample(SAMP_PLASMA, Opt->sound.Soundvolume, 96, 0);
                 // latausaika
                 Md->Pl[i].Reload = 80;
                 // ja tärinä
@@ -565,7 +565,7 @@ void Use_sniper(int i)
                 Getmoments(Md->Pl[i].X BitR, Md->Pl[i].Y BitR, Md->Pl[i].Actionx, Md->Pl[i].Actiony, &Mx, &My);
                 Shoot(BUL_PISTOL, Md->Pl[i].X, Md->Pl[i].Y, Mx*3, My*3, ITEM_SNIPERRIFLE,i,0);
                 // pistoolin ääni
-                Playsample(SAMP_SNIPER, Opt->Soundvolume, 128, 0);
+                Playsample(SAMP_SNIPER, Opt->sound.Soundvolume, 128, 0);
                 // latausaika
                 Md->Pl[i].Reload = 150;
                 // ja tärinä
@@ -576,7 +576,7 @@ void Use_sniper(int i)
 void Use_lasersabre(int i)
 {
     // ääni
-    Playsample(SAMP_PLASMA, Opt->Soundvolume>>1, 128, 0);
+    Playsample(SAMP_PLASMA, Opt->sound.Soundvolume>>1, 128, 0);
     // latausaika
     Md->Pl[i].Reload = 150;
     // ja tärinä
