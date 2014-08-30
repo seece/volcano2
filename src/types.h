@@ -291,9 +291,7 @@ typedef struct
  } Tmaindat; // Maindata missä kaikki on kiinni
 typedef struct
  {
-   int Musicvolume, Soundvolume;
-   int Sndfreq;
-   bool Sound, Bits16,Stereo,Interpolated;
+   struct SoundOptions sound;
    bool Vsync;
    char Players;
    unsigned char Fps;
