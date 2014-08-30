@@ -58,7 +58,7 @@ std::vector<string> mapFilenames;
 
 
 void Sayhello();                   // tervetulotoivotus
-void main(int Argc, char ** Args); // pääohjelma
+int main(int Argc, char ** Args); // pääohjelma
 void Searchfiles();                // etsii .map päätteiset tiedostot
 void Burntitle(BITMAP * bmp);      // Logon poltto
 void Menutexts();                  // valikon tekstit
@@ -124,7 +124,7 @@ void Loadoptions()
     fclose(F);
 } // void Loadoptions()
 
-void main(int Argc, char ** Args)
+int main(int Argc, char ** Args)
 {
     key_led_flag = 0; // numlockit capslock scrolllockit hus veks pois
     if (Argc > 1) Multi = atoi(Args[1]); // parametri (siis frameskip)
@@ -159,6 +159,7 @@ void main(int Argc, char ** Args)
     DeInitData();   // Vapautetaan vielä vähän muistia
     DeInitAllegro();// Ja allegro pois päältä
 
+	return 0;
 } // main
 
 /**
@@ -337,7 +338,7 @@ void Menutexts()
                     Curmenu = 1;
         for (int i = 0; i < 8; i++) if (Filescroll+i < mapFilenames.size()) if (Filescroll+i>=0)
                 {
-                    s = mapFilenames[Filescroll+i].c_str();
+                    s = (char*)mapFilenames[Filescroll+i].c_str();
                     Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
                     textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s, SCREEN_X>>1, 215+i*20, -1);
                     if (Mousein((SCREEN_X>>1)-(Length), 220+i*20, (SCREEN_X>>1)+(Length>>1), 238+i*20))
@@ -868,7 +869,7 @@ void Game()
 
     clear(Scr);
     Upscr();
-    Load(mapFilenames[Opt->Fileselected].c_str());  // engine.h // Lataa kartan
+    Load((char*)mapFilenames[Opt->Fileselected].c_str());  // engine.h // Lataa kartan
     Format();
     Createparallax();
 
@@ -986,8 +987,8 @@ void Game()
         readkey();
     } //     if (Opt->Gametype == GAMETYPE_DEATHMATCH)
     Setclipping(-1);
-    MP_Init(Music2);            // initialize modplayer to play this module
-    Startmusic();
+    StartGameMusic();            // initialize modplayer to play this module
+    StartMusic();
 } // Game
 
 

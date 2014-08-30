@@ -6206,12 +6206,12 @@ void Defaults()                 // Options asetusten resetointi
 {
     memset(Opt, 0, sizeof(Toptions));
     Opt->Texturedearth = 2;
-    Opt->Musicvolume = 50;    // ääntä
+    Opt->sound.Musicvolume = 50;    // ääntä
     Opt->sound.Soundvolume = 100;
-    Opt->Sndfreq = 44100;     // Laatua
-    Opt->Bits16 = true;       // 16Bittinen tottakai
-    Opt->Interpolated = true; // interpoloitu
-    Opt->Sound = true;        // Ja vielä päälle
+    Opt->sound.Sndfreq = 44100;     // Laatua
+    Opt->sound.Bits16 = true;       // 16Bittinen tottakai
+    Opt->sound.Interpolated = true; // interpoloitu
+    Opt->sound.Sound = true;        // Ja vielä päälle
     Opt->Players = 2;                   // pelaajat 2 max 3
     Opt->Parallax = true;
     // Näppäinten asettaminen

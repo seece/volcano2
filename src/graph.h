@@ -43,7 +43,7 @@ void Takescrshot(PALETTE Pal)
         String = "Shot";
         String + i;
         String += ".pcx";
-        if (__file_exists(String.Str())==0)
+        if (file_exists(String.Str(), 0, NULL)==0)
         {
             save_pcx(String.Str(), Scr, Pal);
             i = 10000;
