@@ -5206,7 +5206,7 @@ void Draw_Playerdata(int Screen)
         {
             char * s = new char[5]; // varataan muistia
             memset(s, 0, 5);        // tyhjennetään se
-            itoa(Md->Pl[Screen].Stuff[Md->Pl[Screen].Item], s, 10); // sijoitetaan Money sinne 10 - järjestelmässä
+            itoa_fake(Md->Pl[Screen].Stuff[Md->Pl[Screen].Item], s, 10); // sijoitetaan Money sinne 10 - järjestelmässä
             // ja piirretään merkkijono
             textout_centre(Scr, (FONT*) Dat[SMALLFONT].dat, s, Clipx2-20, 20, -1);
             delete s; // wapautetaan muisti
@@ -5219,7 +5219,7 @@ void Draw_Playerdata(int Screen)
     // sitten muutetaan numero to merkkijono
     char * s = new char[13]; // varataan muistia
     memset(s, 0, 13);        // tyhjennetään se
-    itoa(Md->Pl[Screen].Money, s, 10); // sijoitetaan Money sinne 10 - järjestelmässä
+    itoa_fake(Md->Pl[Screen].Money, s, 10); // sijoitetaan Money sinne 10 - järjestelmässä
     // ja piirretään merkkijono
     textout_centre(Scr, (FONT*) Dat[SMALLFONT].dat, s, Clipx2-70, 2, -1);
     delete s; // wapautetaan muisti
@@ -5694,7 +5694,7 @@ void Draw_Menus(int Screen)
                     drawing_mode(DRAW_MODE_TRANS, 0, 0, 0);
                     char * s = new char[5]; // varataan muistia
                     memset(s, 0, 5);        // tyhjennetään se
-                    itoa(Md->Pl[Screen].Stuff[Md->Pl[Screen].Inv[i]], s, 10); // sijoitetaan Money sinne 10 - järjestelmässä
+                    itoa_fake(Md->Pl[Screen].Stuff[Md->Pl[Screen].Inv[i]], s, 10); // sijoitetaan Money sinne 10 - järjestelmässä
                     // ja piirretään merkkijono
                     if (Md->Pl[Screen].Stuff[Md->Pl[Screen].Inv[i]]>1)
                         textout_centre(Scr, (FONT*) Dat[SMALLFONT].dat, s, Clipx1 + (Clipx>>1) -90 + Ax*18+9, (Clipy1+((Clipy2-Clipy1)>>1)) - 125 + Ay*18-3, -1);

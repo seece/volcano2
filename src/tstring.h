@@ -2,6 +2,12 @@
 #define __tstring_h
 #include <string.h>
 #include <stdlib.h>
+
+static void itoa_fake(int value, char* buf, int base) {
+	// base is ignored, always 10
+	sprintf(buf, "%d", value);
+}
+
 class Tstring
 {
 public:
@@ -45,7 +51,7 @@ void Tstring::operator=(int num)
 {
     if (s) delete s;
     char buf[20]= {0};
-    itoa(num, buf, 10);
+    itoa_fake(num, buf, 10);
     s = new char[strlen(buf)+1];
 
     Len = strlen(buf)+1;
@@ -65,7 +71,8 @@ void Tstring::operator+(char *s2)
 void Tstring::operator+(int num)
 {
     char buf[20]= {0};
-    itoa(num, buf, 10);
+    itoa_fake(num, buf, 10);
+    
 
     char *s3 = new char[Len+strlen(buf)+1];
     memset(s3, 0, Len+strlen(buf)+1);

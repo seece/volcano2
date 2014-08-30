@@ -183,7 +183,7 @@ char *Takestring(int x1, int y1, char * s, int maxlen, int col, int bcol)
 void Textint(BITMAP *bmp , FONT * fnt, int i, int x, int y, int col)
 {
     char * s = new char[30];
-    itoa (i,s,10);
+    itoa_fake (i,s,10);
     textout(bmp,fnt, s, x, y, col);
     delete s;
 

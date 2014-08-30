@@ -280,7 +280,7 @@ void Menutexts()
     case 1: // Options
     {
         s = "Players:    ";
-        itoa(Opt->Players, &s[9], 10);
+        itoa_fake(Opt->Players, &s[9], 10);
         s[10] = 0;
         Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s, SCREEN_X>>1, 220, -1);
@@ -433,7 +433,7 @@ void Menutexts()
         strcpy(s, "Start cash: ");
         s2 = new char[10];
         memset(s2, 0, 10);
-        itoa(Opt->Startcash, s2, 10);
+        itoa_fake(Opt->Startcash, s2, 10);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100-(Length>>1), 220, -1);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 220, -1);
         delete s2;
@@ -442,7 +442,7 @@ void Menutexts()
         s[12] = 0;
         s2 = new char[10];
         memset(s2, 0, 10);
-        itoa(Opt->Fps, s2, 10);
+        itoa_fake(Opt->Fps, s2, 10);
 //      strcat(s, s2);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100-(Length>>1), 240, -1);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 240, -1);
@@ -487,7 +487,7 @@ void Menutexts()
 
             s2 = new char[10];
             memset(s2, 0, 10);
-            itoa(Opt->Texturedearth, s2, 10);
+            itoa_fake(Opt->Texturedearth, s2, 10);
 //      strcat(s, s2);
             textout(Scr, (FONT*) Dat[TITLEFONT].dat, "Textured earth:", (SCREEN_X>>1)-100-(Length>>1), 300, -1);
             textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 300, -1);
@@ -507,7 +507,7 @@ void Menutexts()
     if (Mousein((SCREEN_X>>1)-100-(Length>>1), 220, (SCREEN_X>>1)+100+(Length>>1), 250))     if (Mob==0) if (Moldb==1)
             {
                 char * s = new char[10];
-                itoa(Opt->Startcash, s, 10);
+                itoa_fake(Opt->Startcash, s, 10);
                 s = Takestring_centre((SCREEN_X>>1)+100, 220, s, 10, -1, 0);
                 Opt->Startcash = atoi(s);
                 delete s;
@@ -592,7 +592,7 @@ void Menutexts()
             s = "Frag limit:   ";
             char * s2 = new char[20];
             memset(s2, 0, 20);
-            itoa(Opt->Fraglimit, s2, 10);
+            itoa_fake(Opt->Fraglimit, s2, 10);
             Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
             textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100-(Length>>1), 200, -1);
             textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 200, -1);
@@ -616,7 +616,7 @@ void Menutexts()
             s = "Bots:     ";
             char * s2 = new char[20];
             memset(s2, 0, 20);
-            itoa(Opt->Bots, s2, 10);
+            itoa_fake(Opt->Bots, s2, 10);
             Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
             textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100-(Length>>1), 200, -1);
             textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 200, -1);
@@ -660,7 +660,7 @@ void Menutexts()
         char * s2 = new char[10];
         memset(s2, 0, 10);
         s = "Pistol bots:";
-        itoa(Opt->Botweapons[0], s2, 10);
+        itoa_fake(Opt->Botweapons[0], s2, 10);
         Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100, 200, -1);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 200, -1);
@@ -674,7 +674,7 @@ void Menutexts()
                 }
         memset(s2, 0, 10);
         s = "Magnum bots:";
-        itoa(Opt->Botweapons[7], s2, 10);
+        itoa_fake(Opt->Botweapons[7], s2, 10);
         Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100, 220, -1);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 220, -1);
@@ -688,7 +688,7 @@ void Menutexts()
                 }
         memset(s2, 0, 10);
         s = "Shotgun bots:";
-        itoa(Opt->Botweapons[1], s2, 10);
+        itoa_fake(Opt->Botweapons[1], s2, 10);
         Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100, 240, -1);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 240, -1);
@@ -702,7 +702,7 @@ void Menutexts()
                 }
         memset(s2, 0, 10);
         s = "Machinegun bots:";
-        itoa(Opt->Botweapons[2], s2, 10);
+        itoa_fake(Opt->Botweapons[2], s2, 10);
         Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100, 260, -1);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 260, -1);
@@ -716,7 +716,7 @@ void Menutexts()
                 }
         memset(s2, 0, 10);
         s = "Bazooka bots:";
-        itoa(Opt->Botweapons[3], s2, 10);
+        itoa_fake(Opt->Botweapons[3], s2, 10);
         Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100, 280, -1);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 280, -1);
@@ -730,7 +730,7 @@ void Menutexts()
                 }
         memset(s2, 0, 10);
         s = "Homing missile bots:";
-        itoa(Opt->Botweapons[4], s2, 10);
+        itoa_fake(Opt->Botweapons[4], s2, 10);
         Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100, 300, -1);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 300, -1);
@@ -744,7 +744,7 @@ void Menutexts()
                 }
         memset(s2, 0, 10);
         s = "Plasma pistol bots:";
-        itoa(Opt->Botweapons[5], s2, 10);
+        itoa_fake(Opt->Botweapons[5], s2, 10);
         Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100, 320, -1);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 320, -1);
@@ -758,7 +758,7 @@ void Menutexts()
                 }
         memset(s2, 0, 10);
         s = "Laser rifle bots:";
-        itoa(Opt->Botweapons[6], s2, 10);
+        itoa_fake(Opt->Botweapons[6], s2, 10);
         Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100, 340, -1);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 340, -1);
@@ -772,7 +772,7 @@ void Menutexts()
                 }
         memset(s2, 0, 10);
         s = "Sniper rifle bots:";
-        itoa(Opt->Botweapons[8], s2, 10);
+        itoa_fake(Opt->Botweapons[8], s2, 10);
         Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100, 360, -1);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 360, -1);
