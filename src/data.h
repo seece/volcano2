@@ -17,15 +17,15 @@ void InitData(); // Lataa datafilet
 void DeInitData(); // Vapauttaa muistin
 
 void InitData()
- {
-   Dat = load_datafile("data.dat");
-   Exp = load_datafile("exp.dat");
- } // InitData
+{
+    Dat = load_datafile("data.dat");
+    Exp = load_datafile("exp.dat");
+} // InitData
 void DeInitData()
- {
-   unload_datafile(Dat);
-   unload_datafile(Exp);
- } // DeInitData
+{
+    unload_datafile(Dat);
+    unload_datafile(Exp);
+} // DeInitData
 
 
 

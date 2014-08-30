@@ -56,7 +56,7 @@ void Startmusic()
 bool Init_Music(SoundOptions* sndOpt)
 {
     srandom(time(0));
-    soundOpt = sndOpt;    
+    soundOpt = sndOpt;
 
     //  Initialize soundcard parameters.. you _have_ to do this
     //  before calling MD_Init(), and it's illegal to change them
@@ -67,24 +67,24 @@ bool Init_Music(SoundOptions* sndOpt)
     if (soundOpt->Bits16)       md_mode |= DMODE_16BITS;
     if (soundOpt->Interpolated) md_mode |= DMODE_INTERP;
     if (soundOpt->Stereo)       md_mode |= DMODE_STEREO;
-    
+
     MikMod_RegisterLoader(&load_s3m);
     MikMod_RegisterLoader(&load_xm);   // Register the loaders we want to use..
 
     MikMod_RegisterAllDrivers();
 
     if(!MikMod_Init(0)) {
-        printf("\nMikMod_Init failure: %s\n", 
+        printf("\nMikMod_Init failure: %s\n",
                MikMod_strerror(MikMod_errno));
         return false;
     }
-    
+
     gameMusic = Player_Load("5th_answ.xm", maxChan, 0);
     if(gameMusic==NULL) {
         printf("\nFile 5th_answ.xm not found.\n");
         return false;
     }
-    
+
     menuMusic = Player_Load("main.xm", maxChan, 0);
     if(menuMusic==NULL) {
         printf("\nFile main.xm not found.\n");
@@ -141,19 +141,19 @@ void Loadsamples()
 }
 
 void Free_sounds()
- {
-     for (int i = 0; i < SAMPLE_COUNT; i++) {
-         Sample_Free(Samp[i]);
-     }
- }
+{
+    for (int i = 0; i < SAMPLE_COUNT; i++) {
+        Sample_Free(Samp[i]);
+    }
+}
 
 void Playsample(SAMPLE *smp,int Vol, int Pan, int Freq)
 {
     if (!Freq) Freq = smp->speed; // pitäis olla suht koht selvät...
     if (soundOpt->Sound) {
         SBYTE voiceIndex = Sample_Play(smp, 0, 0);
-	    Voice_SetVolume(voiceIndex,Vol);
-	    Voice_SetPanning(voiceIndex,Pan);
+        Voice_SetVolume(voiceIndex,Vol);
+        Voice_SetPanning(voiceIndex,Pan);
         Voice_SetFrequency(voiceIndex,Freq);
     }
 }
