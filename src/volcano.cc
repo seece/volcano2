@@ -105,6 +105,9 @@ void Sayhello()
     case  OSTYPE_OPENDOS :
         s = "Caldera OpenDOS";
         break;
+    default:
+        s = "undetected";
+        break;
     };
     printf("\nOperating system: %s", s);
     if (cpu_fpu) // fpu löyty
