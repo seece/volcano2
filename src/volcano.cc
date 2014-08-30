@@ -171,11 +171,11 @@ void Searchfiles()
 {
     mapFilenames.clear();
 
-    DIR dirStream = opendir(".");
+    DIR* dirStream = opendir(".");
     struct dirent* entry = new dirent;
     struct dirent* next;
 
-    readdir_r(&dirStream, entry, &next);
+    readdir_r(dirStream, entry, &next);
     while (next) {
         string filename(next->d_name);
         string extension(".map");
@@ -195,9 +195,10 @@ void Searchfiles()
             mapFilenames.push_back(filename);
         }
 
-        readdir_r(&dirStream, entry, &next);
+        readdir_r(dirStream, entry, &next);
     }
-
+    
+    closedir(dirStream);
     delete entry;
 } // void Searchfiles()
 
