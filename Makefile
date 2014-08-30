@@ -1,5 +1,5 @@
 CXX=g++
-CXXFLAGS=-Wall -Wno-write-strings
+CXXFLAGS=-Wall -Wno-write-strings -Wno-deprecated-declarations
 LDFLAGS=
 LDLIBS=
 
