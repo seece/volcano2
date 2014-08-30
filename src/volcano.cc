@@ -223,21 +223,13 @@ void Burntitle(BITMAP * bmp)
                 bmp->line[y][x] = c;
         } //   for (int y = 0; y < bmp->h; y++)   for (int x = 0; x < bmp->w; x++)
 } // void Burntitle(BITMAP * bmp)
+
 int Getkey()
 {
-    char old = inportb(0x60);
-    char New;
-    do
-    {
-        New = inportb(0x60);
-        if (old != New) return New;
-    } while (1==1);
-    if (keypressed())
-        do
-        {
-            readkey();
-        } while (keypressed());
-} // int Getkey()
+    // TODO: keyboard...
+    return 0;
+}
+
 void Menutexts()
 {
     int Length = 0;
