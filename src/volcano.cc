@@ -13,10 +13,11 @@ unsigned _stklen = 16834*1024;
 #include <stdio.h>
 #include <time.h>
 #include <allegro.h>
-#include <mikmod.h>
 #include <dirent.h>
 #include <vector>
 #include <string>
+
+#include "sound.h"    // äänihommelit
 
 using namespace std; // Yeah...
 
@@ -49,11 +50,8 @@ std::vector<string> mapFilenames;
 #include "types.h"    // tyyppimäärittelyt pelihahmot laavat maailma
 #include "data.h"     // rutiinit datafilejen avaamista varten
 #include "common.h"   // yleistä löpinää esim InitAllegro() löytyy täältä
-#include "sound.h"    // äänihommelit
-#include "sample.h"   // äänien definet esim SAMP_RELOAD1
 #include "itemdata.h" // tavaroiden teknisemmät tiedot
 #include "graph.h"    // omat graffarutiinit sekä InitGraph()
-
 #include "engine.h"   // Pelimoottori(kaikki pelilogiikka ja piirtäminen)
 #include "items.h"    // tiettyjen tavaroiden käyttämisfunktiot
 #include "control.h"  // pelaajien kontrollointi
@@ -65,7 +63,6 @@ void Searchfiles();                // etsii .map päätteiset tiedostot
 void Burntitle(BITMAP * bmp);      // Logon poltto
 void Menutexts();                  // valikon tekstit
 void Menu();                       // valikko
-void Set_volume();                 // äänen voimakkuuden päivitys
 void Update_timers();              // Timereiden päivitys
 void Game();                       // pääluuppi
 
@@ -118,13 +115,13 @@ void main(int Argc, char ** Args)
    Sayhello();    // Terve
    if (file_exists("Options.cfg", 0, 0)) Loadoptions(); else {Defaults();}
 
-   if (Opt->Sound) Init_Music(); // Lataa module
+   if (Opt->sound->Sound) Init_Music(&Opt->sound); // Lataa module
    printf ("\nPress any key to continue");
    fflush(stdout);
    readkey();
    fade_out (4);
 
-   if (Opt->Sound) Loadsamples();// Lataa samplet
+   if (Opt->sound->Sound) Loadsamples();// Lataa samplet
 
    InitData();   // Lataa graffat paletit ja muuta kivaa
    SCREEN_X = Opt->Xres;
@@ -134,8 +131,8 @@ void main(int Argc, char ** Args)
 
    Menu();
    Saveoptions();
-   if (Opt->Sound) Free_sounds();  // Vapautetaan samplet
-   if (Opt->Sound) DeInit_Music(); // Vapautetaan musat
+   if (Opt->sound->Sound) Free_sounds();  // Vapautetaan samplet
+   if (Opt->sound->Sound) DeInit_Music(); // Vapautetaan musat
    DeInitEngine(); // Vapautetaan mootorin muistinvaraukset
    DeInitGraph();  // Graffatila pois ja tekstitila päälle
    DeInitData();   // Vapautetaan vielä vähän muistia
@@ -745,19 +742,16 @@ void Menutexts()
        break;
    };
  } // Menutexts
-void Set_volume() // Siis äänenvoimmakkuuden päivitys
- {
-   if (mp_volume < Opt->Musicvolume) mp_volume++;
-   if (mp_volume > Opt->Musicvolume) mp_volume--;
 
- } // Set_volume()
+
+
 void Menu()
  {
   Searchfiles();
 //  Game();
   set_palette((PALETTE) Dat[TITLEPAL].dat);
-    MP_Init(Music2);            // initialize modplayer to play this module
-    Startmusic();
+  StartMenuMusic();
+
 
   int Timer = 0;
    do
@@ -788,7 +782,7 @@ void Menu()
       } //      if (Mustfadein)
      if (key[SxESC]) Exit = true;
      if (key[SxF8]) {key[SxF8]=0; Takescrshot((PALETTE) Dat[TITLEPAL].dat);}
-     Set_volume();
+     SoundUpdate(20); // TODO: elapsed time
     } while (!Exit);
     fade_out(4);
  } // Menu
@@ -811,9 +805,7 @@ void Game()
     Format();
     Createparallax();
 
-    MP_Init(Music);
-    md_numchn=Music->numchn+8;
-    Startmusic();             // musiikki soimaan
+    StartGameMusic();
     Playsample(0, 0, 0);      // alkusample koska muuten ei ensimmäinen soi
     Do_game_logic();
     Animate();
@@ -827,7 +819,7 @@ void Game()
     {
       Update_clock();
       Update_timers();          // Timereiden päivitys
-      Set_volume();             // volcano2.cc
+      SoundUpdate(20);          // TODO: elapsed time
       do
        {
         Do_game_logic();          // engine.h // pelilogiikan päivitys

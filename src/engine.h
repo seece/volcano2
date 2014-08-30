@@ -1799,7 +1799,7 @@ void Laser_cannon_action(int i)
     if (Md->Pl[i].Actionvar[1] == 0)
      {
       Md->Pl[i].Action = 0;
-      Playsample(Samp[SAMP_PLASMA], Opt->Soundvolume, 128, 0);
+      Playsample(SAMP_PLASMA, Opt->Soundvolume, 128, 0);
       Md->Pl[i].Mx += fcos(Suunta(Md->Pl[i].Dir-itofix(128)));
       Md->Pl[i].My += fsin(Suunta(Md->Pl[i].Dir-itofix(128)));
       Shoot(BUL_BIGLASER, Md->Pl[i].X, Md->Pl[i].Y, fcos(Md->Pl[i].Dir)-10000+rand()%20000, fsin(Md->Pl[i].Dir)-10000+rand()%20000,ITEM_LASERCANNON,i,0);
@@ -3787,8 +3787,8 @@ void Update_explosions()
          if (Expsample == false) if (Md->Exp[i].Sampled==false)
           {
              if (Md->Exp[i].Type != 4)
-              Playsample(Samp[SAMP_EXP1], Opt->Soundvolume, 128, 0); else
-               Playsample(Samp[SAMP_EXP1], Opt->Soundvolume>>2, 128, 0);
+              Playsample(SAMP_EXP1, Opt->Soundvolume, 128, 0); else
+               Playsample(SAMP_EXP1, Opt->Soundvolume>>2, 128, 0);
 
 
             Md->Exp[i].Sampled = true;
