@@ -367,7 +367,7 @@ void Menutexts()
                     } // if (Timer > 10)
                 } //         if (Mousein( (SCREEN_X>>1)-(((BITMAP*) Dat[TITLEARROW].dat)->w>>1), 380, (SCREEN_X>>1)+(((BITMAP*) Dat[TITLEARROW].dat)->w>>1), 400))
         } // Filescroll
-        if (Filescroll+7 < Files-1)
+        if (Filescroll+7 < mapFilenames.size()-1)
         {
             draw_sprite(Scr, (BITMAP*) Dat[TITLEARROW].dat, (SCREEN_X>>1)-(((BITMAP*) Dat[TITLEARROW].dat)->w>>1), 380);
             int size = abs( (((BITMAP*) Dat[TITLEARROW].dat)->w>>1));
