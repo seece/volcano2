@@ -64,7 +64,7 @@ void SoundUpdate(int elapsedMsec);
  *
  * @return true on success
  */
-bool Init_Music();
+bool Init_Music(SoundOptions* sndOpt);
 
 
 void DeInit_Music();            // vapautetaan musik

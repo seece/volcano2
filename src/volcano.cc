@@ -136,7 +136,7 @@ int main(int Argc, char ** Args)
         Defaults();
     }
 
-    if (Opt->sound.Sound) Init_Music(); // Lataa module
+    if (Opt->sound.Sound) Init_Music(&Opt->sound); // Lataa module
     printf ("\nPress any key to continue");
     fflush(stdout);
     readkey();

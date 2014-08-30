@@ -7,6 +7,9 @@
 #include <ctime>
 #include <mikmod.h>
 
+
+#define NOT_IMPLEMENTED_MESSAGE() printf("%s not yet implemented", __FUNCTION__);
+
 using std::min;
 
 const int maxChan = 64; // TODO: probably not reasonable
@@ -27,7 +30,7 @@ SWORD musicCurVolume;
 
 void Playsample(SAMPLE *smp);
 void Playsample(SAMPLE *smp,int Vol, int Pan, int Freq);
-void Startmusic();
+void StartMusic();
 
 /*-------------------------
  * Implementations
@@ -35,26 +38,37 @@ void Startmusic();
 
 void StartGameMusic()
 {
+#if 0
     currentMusic = gameMusic;
-    Startmusic();
+    StartMusic();
+#endif
+    NOT_IMPLEMENTED_MESSAGE();
 }
 
 void StartMenuMusic()
 {
+#if 0
     currentMusic = menuMusic;
-    Startmusic();
+    StartMusic();
+#endif
+    NOT_IMPLEMENTED_MESSAGE();
 }
 
-void Startmusic()
+void StartMusic()
 {
     // TODO: probably not a good idea to set volume instantly to 0
+#if 0
     musicCurVolume = 0;
     Player_SetVolume(musicCurVolume);
     if (soundOpt->Sound) Player_Start(currentMusic);         // start playing the music
+#endif
+
+    NOT_IMPLEMENTED_MESSAGE();
 }
 
 bool Init_Music(SoundOptions* sndOpt)
 {
+#if 0
     srandom(time(0));
     soundOpt = sndOpt;
 
@@ -97,20 +111,27 @@ bool Init_Music(SoundOptions* sndOpt)
            (md_mode&DMODE_INTERP) ? "interpolated":"normal",
            (md_mode&DMODE_STEREO) ? "stereo":"mono",
            md_mixfreq);
+#endif
+
+    NOT_IMPLEMENTED_MESSAGE();
 }
 
 
 void DeInit_Music()
 {
+#if 0
     Player_Stop();
     Player_Free(gameMusic);
     Player_Free(menuMusic);
     MikMod_Exit();
+#endif
 
+    NOT_IMPLEMENTED_MESSAGE();
 }
 
 void Loadsamples()
 {
+#if 0
     Samp[SAMP_PISTOL]        = Sample_Load("sounds/pistol.wav");
     Samp[SAMP_ROCKET]        = Sample_Load("sounds/rlaunch.wav");
     Samp[SAMP_MACHINEGUN]    = Sample_Load("sounds/machineg.wav");
@@ -138,17 +159,26 @@ void Loadsamples()
     Samp[SAMP_EXP3]          = Sample_Load("sounds/exp3.wav");
     Samp[SAMP_BIGMACHINEGUN] = Sample_Load("sounds/762.wav");
     Samp[SAMP_EMPTYSHELL]    = Sample_Load("sounds/emptys.wav");
+#endif
+
+
+    NOT_IMPLEMENTED_MESSAGE();
 }
 
 void Free_sounds()
 {
+#if 0
     for (int i = 0; i < SAMPLE_COUNT; i++) {
         Sample_Free(Samp[i]);
     }
+#endif
+
+    NOT_IMPLEMENTED_MESSAGE();
 }
 
 void Playsample(SAMPLE *smp,int Vol, int Pan, int Freq)
 {
+#if 0
     if (!Freq) Freq = smp->speed; // pitäis olla suht koht selvät...
     if (soundOpt->Sound) {
         SBYTE voiceIndex = Sample_Play(smp, 0, 0);
@@ -156,25 +186,41 @@ void Playsample(SAMPLE *smp,int Vol, int Pan, int Freq)
         Voice_SetPanning(voiceIndex,Pan);
         Voice_SetFrequency(voiceIndex,Freq);
     }
+#endif
+
+    NOT_IMPLEMENTED_MESSAGE();
 }
 
 void Playsample(SAMPLE *smp)
 {
+#if 0
     Playsample(smp, 0, 128, 0);
+#endif
+
+    NOT_IMPLEMENTED_MESSAGE();
 }
 
 void Playsample(int smp,int Vol, int Pan)
 {
+#if 0
     Playsample(Samp[smp], Vol, Pan, 0);
+#endif
+
+    NOT_IMPLEMENTED_MESSAGE();
 }
 
 void Playsample(int smp,int Vol, int Pan, int Freq)
 {
+#if 0
     Playsample(Samp[smp], Vol, Pan, Freq);
+#endif
+
+    NOT_IMPLEMENTED_MESSAGE();
 }
 
 void SoundUpdate(int elapsedMsec)
 {
+#if 0
     if(soundOpt->Musicvolume != musicCurVolume) {
         // TODO: hackety hack / not going to work
         int change = min(elapsedMsec/20, 1);
@@ -187,4 +233,7 @@ void SoundUpdate(int elapsedMsec)
     }
 
     MikMod_Update();
+#endif
+
+    NOT_IMPLEMENTED_MESSAGE();
 }
