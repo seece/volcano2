@@ -69,7 +69,7 @@ void Game();                       // pääluuppi
 
 void Sayhello()
 {
-
+  
     check_cpu();  // tarkistaa cpu:n tyypin
     if (cpu_mmx)  // jos mmx
     {
@@ -236,6 +236,7 @@ void Menutexts()
 {
     int Length = 0;
     char * s = 0;
+    std::string textbuffer;
     switch(Curmenu)
     {
     case 0:// Mainmenu
@@ -275,9 +276,11 @@ void Menutexts()
         break; // Mainmenu
     case 1: // Options
     {
-        s = "Players:    ";
+        textbuffer = "Players:    ";
+        s = &textbuffer[0];
         itoa_fake(Opt->Players, &s[9], 10);
         s[10] = 0;
+ 
         Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s, SCREEN_X>>1, 220, -1);
         if (Mousein((SCREEN_X>>1)-(Length), 220, (SCREEN_X>>1)+(Length>>1), 240))     if (Mob==0) if (Moldb==1)
@@ -296,7 +299,7 @@ void Menutexts()
                 {
                     Curmenu = 2;
                 } //       if (Mousein((SCREEN_X>>1)-(Length), 220, (SCREEN_X>>1)+(Length>>1), 240))     if (Mob==0) if (Moldb==1)
-        delete s;
+        delete[] s;
         s = "Keys";
         Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s, SCREEN_X>>1, 280, -1);
@@ -410,7 +413,7 @@ void Menutexts()
         Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100-(Length>>1), 180, -1);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 180, -1);
-        delete s2;
+        delete[] s2;
         if (Mousein((SCREEN_X>>1)-100-(Length), 180, (SCREEN_X>>1)+100+(Length), 200)) if (Mob==0) if (Moldb==1)
                 {
                     Opt->Gametype ++;
@@ -418,7 +421,7 @@ void Menutexts()
                 } // if (Mousein((SCREEN_X>>1)-100-(Length), 180, (SCREEN_X>>1)+100+(Length), 200)) if (Mob==0) if (Moldb==1)
         s = "Game type options";
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100-(Length>>1), 200, -1);
-        delete s2;
+        delete[] s2;
         if (Mousein((SCREEN_X>>1)-100-(Length), 200, (SCREEN_X>>1)+100+(Length), 220)) if (Mob==0) if (Moldb==1)
                 {
                     Curmenu = 8;
@@ -432,8 +435,8 @@ void Menutexts()
         itoa_fake(Opt->Startcash, s2, 10);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100-(Length>>1), 220, -1);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 220, -1);
-        delete s2;
-        delete s;
+        delete[] s2;
+        delete[] s;
         s= "FPS:          ";
         s[12] = 0;
         s2 = new char[10];
@@ -442,7 +445,7 @@ void Menutexts()
 //      strcat(s, s2);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100-(Length>>1), 240, -1);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 240, -1);
-        delete s2;
+        delete[] s2;
         if (Mousein((SCREEN_X>>1)-100-(Length), 240, (SCREEN_X>>1)+100+(Length), 260))
         {
 
@@ -460,7 +463,7 @@ void Menutexts()
 //      strcat(s, s2);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100-(Length>>1), 260, -1);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 260, -1);
-        delete s2;
+        delete[] s2;
         if (Mousein((SCREEN_X>>1)-100-(Length), 260, (SCREEN_X>>1)+100+(Length), 280)) if (Mob==0) if (Moldb==1)
                 {
                     Opt->Parallax = (Opt->Parallax==false);
@@ -474,7 +477,7 @@ void Menutexts()
 //      strcat(s, s2);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100-(Length>>1), 280, -1);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 280, -1);
-        delete s2;
+        delete[] s2;
         if (Mousein((SCREEN_X>>1)-100-(Length), 280, (SCREEN_X>>1)+100+(Length), 300)) if (Mob==0) if (Moldb==1)
                 {
                     Opt->Lava = (Opt->Lava==false);
@@ -487,7 +490,7 @@ void Menutexts()
 //      strcat(s, s2);
             textout(Scr, (FONT*) Dat[TITLEFONT].dat, "Textured earth:", (SCREEN_X>>1)-100-(Length>>1), 300, -1);
             textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 300, -1);
-            delete s2;
+            delete[] s2;
         }
         if (Mousein((SCREEN_X>>1)-100-(Length), 300, (SCREEN_X>>1)+100+(Length), 320)) if (Mob==0) if (Moldb==1)
                 {
@@ -506,7 +509,7 @@ void Menutexts()
                 itoa_fake(Opt->Startcash, s, 10);
                 s = Takestring_centre((SCREEN_X>>1)+100, 220, s, 10, -1, 0);
                 Opt->Startcash = atoi(s);
-                delete s;
+                delete[] s;
             } //        if (Mousein((SCREEN_X>>1)-(Length>>1), 220, (SCREEN_X>>1)+(Length>>1), 250))     if (Mob==0) if (Moldb==1)
     break; // Goptions
     case 5:
@@ -592,7 +595,7 @@ void Menutexts()
             Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
             textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100-(Length>>1), 200, -1);
             textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 200, -1);
-            delete s2;
+            delete[] s2;
             if (Mousein((SCREEN_X>>1)-100-(Length), 200, (SCREEN_X>>1)+100+(Length>>1), 220)) if (Mob==0) if (Moldb)
                     {
                         if (Mob==0) if (Moldb== 1) Opt->Fraglimit +=5;
@@ -616,7 +619,7 @@ void Menutexts()
             Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
             textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100-(Length>>1), 200, -1);
             textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 200, -1);
-            delete s2;
+            delete[] s2;
             if (Mousein((SCREEN_X>>1)-100-(Length), 200, (SCREEN_X>>1)+100+(Length>>1), 220)) if (Mob==0) if (Moldb)
                     {
                         /*         if (Mob==0) if (Moldb== 1) Opt->Bots ++;
@@ -634,7 +637,7 @@ void Menutexts()
             Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
             textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100-(Length>>1), 220, -1);
             textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 220, -1);
-            delete s2;
+            delete[] s2;
             if (Mousein((SCREEN_X>>1)-100-(Length), 220, (SCREEN_X>>1)+100+(Length>>1), 240)) if (Mob==0) if (Moldb)
                     {
                         if (Mob==0) if (Moldb== 1) Opt->Botdifficulty ++;
@@ -790,7 +793,7 @@ void Menutexts()
                     Opt->Bots = 0;
                     for (int i2 = 0; i2 < Difbotweapons; i2++) Opt->Bots += Opt->Botweapons[i2];
                 }
-        delete s2;
+        delete[] s2;
     }
     break;
     };
