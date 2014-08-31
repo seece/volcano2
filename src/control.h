@@ -713,7 +713,7 @@ void Formatplayer(int i)
 void Checkkeys()
 {
     // escillä pois
-    if (key[SxESC]) Done = true;
+    if (key[KEY_ESC]) Done = true;
 
     for (int i = 0; i < Opt->Players; i++)
     {
@@ -739,9 +739,9 @@ void Checkkeys()
         if (key[Opt->Nap[i].Ninjarope])  PlayerNinjarope(i);
         if (Keyboard_update_counter == 1)
             if (key[Opt->Nap[i].Jump])   PlayerJump(i);
-        if (key[SxF8]) {
+        if (key[KEY_F8]) {
             Takescrshot((PALETTE) Dat[DATPALETTE].dat);
-            key[SxF8] = 0;
+            key[KEY_F8] = 0;
         }
     } // for (int i = 0; i < Opt->Players; i++)
 } // Checkkeys

@@ -6216,38 +6216,38 @@ void Defaults()                 // Options asetusten resetointi
     Opt->Players = 2;                   // pelaajat 2 max 3
     Opt->Parallax = true;
     // Näppäinten asettaminen
-    Opt->Nap[2].Up =     SxI;
-    Opt->Nap[2].Left =   SxJ;
-    Opt->Nap[2].Right =  SxL;
-    Opt->Nap[2].Down =   SxK;     // pelaaja kolme
-    Opt->Nap[2].Use =    SxCOMMA;
-    Opt->Nap[2].Change = SxN;
-    Opt->Nap[2].Jump =   SxM;
-    Opt->Nap[2].Ninjarope =   SxB;
+    Opt->Nap[2].Up =     KEY_I;
+    Opt->Nap[2].Left =   KEY_J;
+    Opt->Nap[2].Right =  KEY_L;
+    Opt->Nap[2].Down =   KEY_K;     // pelaaja kolme
+    Opt->Nap[2].Use =    KEY_COMMA;
+    Opt->Nap[2].Change = KEY_N;
+    Opt->Nap[2].Jump =   KEY_M;
+    Opt->Nap[2].Ninjarope =   KEY_B;
 
-    Opt->Nap[0].Up =     SxW;
-    Opt->Nap[0].Left =   SxA;    // pelaaja yksi
-    Opt->Nap[0].Right =  SxD;
-    Opt->Nap[0].Down =   SxS;
-    Opt->Nap[0].Use =    SxTAB;
+    Opt->Nap[0].Up =     KEY_W;
+    Opt->Nap[0].Left =   KEY_A;    // pelaaja yksi
+    Opt->Nap[0].Right =  KEY_D;
+    Opt->Nap[0].Down =   KEY_S;
+    Opt->Nap[0].Use =    KEY_TAB;
 
     Opt->Xres = 640;
     Opt->Yres = 480;
 
     Opt->Lava = true;
 
-    Opt->Nap[0].Change = SxCAPSLOCK;
-    Opt->Nap[0].Jump =    SxSHIFTSxLEFT;
+    Opt->Nap[0].Change = KEY_CAPSLOCK;
+    Opt->Nap[0].Jump =    KEY_LSHIFT;
     Opt->Nap[0].Ninjarope = 41;
 
 
-    Opt->Nap[1].Up =     SxUP;
-    Opt->Nap[1].Left =   SxLEFT;
-    Opt->Nap[1].Right =  SxRIGHT;
-    Opt->Nap[1].Down =   SxDOWN;  // pelaaja 2
-    Opt->Nap[1].Use =    SxENTER;
-    Opt->Nap[1].Change = SxBACKSPACE;
-    Opt->Nap[1].Jump =   SxSHIFTSxRIGHT;
+    Opt->Nap[1].Up =     KEY_UP;
+    Opt->Nap[1].Left =   KEY_LEFT;
+    Opt->Nap[1].Right =  KEY_RIGHT;
+    Opt->Nap[1].Down =   KEY_DOWN;  // pelaaja 2
+    Opt->Nap[1].Use =    KEY_ENTER;
+    Opt->Nap[1].Change = KEY_BACKSPACE;
+    Opt->Nap[1].Jump =   KEY_RSHIFT;
     Opt->Nap[1].Ninjarope = 40;
 
     Opt->Realrope = false;

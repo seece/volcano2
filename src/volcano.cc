@@ -46,7 +46,6 @@ std::vector<string> mapFilenames;
 
 /* Modules lacking compilation unit ... */
 
-#include "keyboard.h" // definet esim SxUP == nuoli ylös
 #include "types.h"    // tyyppimäärittelyt pelihahmot laavat maailma
 #include "data.h"     // rutiinit datafilejen avaamista varten
 #include "common.h"   // yleistä löpinää esim InitAllegro() löytyy täältä
@@ -262,7 +261,7 @@ void Menutexts()
                             textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s, SCREEN_X>>1, 220, -1);
                             draw_sprite(Scr, (BITMAP*) Dat[TITLECOPYRIGHT].dat, SCREEN_X-((BITMAP*) Dat[TITLECOPYRIGHT].dat)->w, SCREEN_Y-10-((BITMAP*) Dat[TITLECOPYRIGHT].dat)->h);
                             Mustfadein = true;
-                            key[SxESC] = 0;
+                            key[KEY_ESC] = 0;
                         } else // Opt->Fileselected
                         {
                             textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, "Please select a valid map.", SCREEN_X>>1, 190, -1);
@@ -517,7 +516,7 @@ void Menutexts()
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100, 200, -1);
         if (Mousein((SCREEN_X>>1)-100, 200, (SCREEN_X>>1)+160, 220)) if (Mob==0) if (Moldb==1)
                     Opt->Nap[Pl].Up =  Getkey();
-        s = Keyboardname[Opt->Nap[Pl].Up];
+        s = scancode_to_name(Opt->Nap[Pl].Up);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)+100, 200, -1);
 
         s = "Down: ";
@@ -525,49 +524,49 @@ void Menutexts()
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100, 220, -1);
         if (Mousein((SCREEN_X>>1)-100, 220, (SCREEN_X>>1)+160, 240)) if (Mob==0) if (Moldb==1)
                     Opt->Nap[Pl].Down = Getkey();
-        s = Keyboardname[Opt->Nap[Pl].Down];
+        s = scancode_to_name(Opt->Nap[Pl].Down);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)+100, 220, -1);
         s = "Left: ";
         Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100, 240, -1);
         if (Mousein((SCREEN_X>>1)-100, 240, (SCREEN_X>>1)+160, 260)) if (Mob==0) if (Moldb==1)
                     Opt->Nap[Pl].Left = Getkey();
-        s = Keyboardname[Opt->Nap[Pl].Left];
+        s = scancode_to_name(Opt->Nap[Pl].Left);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)+100, 240, -1);
         s = "Right: ";
         Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100, 260, -1);
         if (Mousein((SCREEN_X>>1)-100, 260, (SCREEN_X>>1)+160, 280)) if (Mob==0) if (Moldb==1)
                     Opt->Nap[Pl].Right = Getkey();
-        s = Keyboardname[Opt->Nap[Pl].Right];
+        s = scancode_to_name(Opt->Nap[Pl].Right);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)+100, 260, -1);
         s = "Use: ";
         Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100, 280, -1);
         if (Mousein((SCREEN_X>>1)-100, 280, (SCREEN_X>>1)+160, 300)) if (Mob==0) if (Moldb==1)
                     Opt->Nap[Pl].Use = Getkey();
-        s = Keyboardname[Opt->Nap[Pl].Use];
+        s = scancode_to_name(Opt->Nap[Pl].Use);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)+100, 280, -1);
         s = "Change: ";
         Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100, 300, -1);
         if (Mousein((SCREEN_X>>1)-100, 300, (SCREEN_X>>1)+160, 320)) if (Mob==0) if (Moldb==1)
                     Opt->Nap[Pl].Change = Getkey();
-        s = Keyboardname[Opt->Nap[Pl].Change];
+        s = scancode_to_name(Opt->Nap[Pl].Change);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)+100, 300, -1);
         s = "Jump: ";
         Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100, 320, -1);
         if (Mousein((SCREEN_X>>1)-100, 320, (SCREEN_X>>1)+160, 340)) if (Mob==0) if (Moldb==1)
                     Opt->Nap[Pl].Jump = Getkey();
-        s = Keyboardname[Opt->Nap[Pl].Jump];
+        s = scancode_to_name(Opt->Nap[Pl].Jump);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)+100, 320, -1);
         s = "Ninjarope: ";
         Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100, 340, -1);
         if (Mousein((SCREEN_X>>1)-100, 340, (SCREEN_X>>1)+160, 360)) if (Mob==0) if (Moldb==1)
                     Opt->Nap[Pl].Ninjarope = Getkey();
-        s = Keyboardname[Opt->Nap[Pl].Ninjarope];
+        s = scancode_to_name(Opt->Nap[Pl].Ninjarope);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)+100, 340, -1);
         s = "Back";
         Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
@@ -825,9 +824,9 @@ void Menu()
             fade_in((PALETTE) Dat[TITLEPAL].dat, 6);
             Mustfadein = false;
         } //      if (Mustfadein)
-        if (key[SxESC]) Exit = true;
-        if (key[SxF8]) {
-            key[SxF8]=0;
+        if (key[KEY_ESC]) Exit = true;
+        if (key[KEY_F8]) {
+            key[KEY_F8]=0;
             Takescrshot((PALETTE) Dat[TITLEPAL].dat);
         }
         SoundUpdate(20); // TODO: elapsed time
