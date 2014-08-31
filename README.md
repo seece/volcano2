@@ -4,7 +4,9 @@ This is the source code for the game [Volcano 2 v 0.71](http://www.suomipelit.fi
 In this release the source code from the game zip archive has been converted to UTF-8 encoding to make it compatible with modern compilers.
 
 ## Compilation
-Currently it's not possible to compile the source code on modern systems because of the dependencies on old multimedia libraries. Any help regarding this state of affairs is welcome.
+Compile with `make volcano`. 
+
+Please note that you need `liballegro-4.2` and `mikmod` with the matching development packages to compile this. You also need the original game data with the file names converted to lower case to launch the game.
 
 ## License
 
