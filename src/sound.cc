@@ -85,6 +85,8 @@ bool Init_Music(SoundOptions* sndOpt)
         return false;
     }
 
+    MikMod_SetNumVoices(maxChan, maxChan);
+
     gameMusic = Player_Load("5th_answ.xm", maxChan, 0);
     if (gameMusic == NULL) {
         printf("\nFile 5th_answ.xm not found.\n");
