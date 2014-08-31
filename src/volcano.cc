@@ -227,9 +227,8 @@ void Burntitle(BITMAP * bmp)
 } // void Burntitle(BITMAP * bmp)
 
 int Getkey()
-{
-    // TODO: keyboard...
-    return 0;
+{    
+    return readkey();
 }
 
 void Menutexts()
