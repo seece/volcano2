@@ -13,10 +13,17 @@ volcano: $(OBJ)
 clean:
 	rm -f $(OBJ)
 	rm -f volcano
+	rm -f game/volcano
 
-run: volcano
+game/volcano: volcano
 	cp volcano game/volcano
+
+run: game/volcano
 	(cd game && ./volcano)
+
+gdb: game/volcano
+	(cd game && gdb ./volcano)
 
 .PHONY : clean
 .PHONY : run
+.PHONY : gdb
