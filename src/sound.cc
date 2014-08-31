@@ -8,7 +8,7 @@
 #include <mikmod.h>
 
 
-#define NOT_IMPLEMENTED_MESSAGE() printf("%s not yet implemented", __FUNCTION__);
+#define NOT_IMPLEMENTED_MESSAGE() printf("%s not yet implemented\n", __FUNCTION__);
 
 using std::min;
 
