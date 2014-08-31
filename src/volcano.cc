@@ -16,10 +16,10 @@ unsigned _stklen = 16834*1024;
 #include <dirent.h>
 #include <vector>
 #include <string>
+#include <sstream>
 
 #include "sound.h"    // äänihommelit
-
-using namespace std; // Yeah...
+#include "util.h"
 
 /*-----------------------------------------------------
  * Globals
@@ -42,7 +42,7 @@ int Filescroll = 0;
 
 // Names of *.map files, populated in Searchfiles()
 // (hopefully) just an temporary hack
-std::vector<string> mapFilenames;
+std::vector<std::string> mapFilenames;
 
 /* Modules lacking compilation unit ... */
 
@@ -178,13 +178,13 @@ void Searchfiles()
 
     readdir_r(dirStream, entry, &next);
     while (next) {
-        string filename(next->d_name);
-        string extension(".map");
+        std::string filename(next->d_name);
+        std::string extension(".map");
 
         bool isMapFile = false;
         if(filename.length() > extension.length()) {
             size_t extPos = filename.length() - extension.length();
-            string end = filename.substr(extPos);
+            std::string end = filename.substr(extPos);
             for(size_t i = 0; i < end.length(); i++) {
                 end[i] = tolower(end[i]);
             }
@@ -910,23 +910,26 @@ void Game()
         fade_out(4);
         clear(Scr);
         Upscr();
-        Tstring String;
+        std::stringstream stream;
+
         for (int i = 0; i < Opt->Players; i++)
         {
             Setclipping(i);
-            String = "Player ";
-            String + (i+1);
-            textout_centre(Scr, (FONT*) Dat[FONT1].dat, String.Str(), Clipx1+((Clipx2-Clipx1)>>1), Clipy1+((Clipy2-Clipy1)>>1)-40, -1);
-            String = "Killed ";
-            String + (Md->Pl[i].Botskilled);
-            String += " / ";
-            String + Opt->Bots;
-            String += " bots.";
-            textout_centre(Scr, (FONT*) Dat[FONT1].dat, String.Str(), Clipx1+((Clipx2-Clipx1)>>1), Clipy1+((Clipy2-Clipy1)>>1)-20, -1);
-            String = "Died ";
-            String + (Md->Pl[i].Died);
-            String += " times.";
-            textout_centre(Scr, (FONT*) Dat[FONT1].dat, String.Str(), Clipx1+((Clipx2-Clipx1)>>1), Clipy1+((Clipy2-Clipy1)>>1), -1);
+            stream << "Player ";
+            stream << (i+1);
+            textout_centre(Scr, (FONT*) Dat[FONT1].dat, stream.str().c_str(), Clipx1+((Clipx2-Clipx1)>>1), Clipy1+((Clipy2-Clipy1)>>1)-40, -1);
+            stream.str(""); stream.clear();
+            stream << "Killed ";
+            stream << (Md->Pl[i].Botskilled);
+            stream << " / ";
+            stream << Opt->Bots;
+            stream << " bots.";
+            textout_centre(Scr, (FONT*) Dat[FONT1].dat, stream.str().c_str(), Clipx1+((Clipx2-Clipx1)>>1), Clipy1+((Clipy2-Clipy1)>>1)-20, -1);
+            stream.str(""); stream.clear();
+            stream << "Died ";
+            stream << (Md->Pl[i].Died);
+            stream << " times.";
+            textout_centre(Scr, (FONT*) Dat[FONT1].dat, stream.str().c_str(), Clipx1+((Clipx2-Clipx1)>>1), Clipy1+((Clipy2-Clipy1)>>1), -1);
         } // for (int i = 0; i < Opt->Players; i++)
         Upscr();
         fade_in((PALETTE) Dat[DATPALETTE].dat, 6);
@@ -940,28 +943,31 @@ void Game()
         fade_out(4);
         clear(Scr);
         Upscr();
-        Tstring String;
+        std::stringstream stream;
         for (int i = 0; i < Opt->Players; i++)
         {
             Setclipping(i);
-            String = "Player ";
-            String + (i+1);
-            textout_centre(Scr, (FONT*) Dat[FONT1].dat, String.Str(), Clipx1+((Clipx2-Clipx1)>>1), Clipy1+((Clipy2-Clipy1)>>1)-40, -1);
-            String = "Killed";
-            textout_centre(Scr, (FONT*) Dat[FONT1].dat, String.Str(), Clipx1+((Clipx2-Clipx1)>>1), Clipy1+((Clipy2-Clipy1)>>1)-20, -1);
+            stream << "Player ";
+            stream << (i+1);
+            textout_centre(Scr, (FONT*) Dat[FONT1].dat, stream.str().c_str(), Clipx1+((Clipx2-Clipx1)>>1), Clipy1+((Clipy2-Clipy1)>>1)-40, -1);
+            stream.str(""); stream.clear();
+            stream << "Killed";
+            textout_centre(Scr, (FONT*) Dat[FONT1].dat, stream.str().c_str(), Clipx1+((Clipx2-Clipx1)>>1), Clipy1+((Clipy2-Clipy1)>>1)-20, -1);
             for (int i2 =0 ; i2 < Opt->Players; i2++)
             {
-                String = "Player ";
-                String + (i2+1);
-                String += ": ";
-                String + (Md->Pl[i].Kills[i2]);
-                String += " times.";
-                textout_centre(Scr, (FONT*) Dat[FONT1].dat, String.Str(), Clipx1+((Clipx2-Clipx1)>>1), Clipy1+((Clipy2-Clipy1)>>1)+i2*20, -1);
+                stream.str(""); stream.clear();
+                stream << "Player ";
+                stream << (i2+1);
+                stream << ": ";
+                stream << (Md->Pl[i].Kills[i2]);
+                stream << " times.";
+                textout_centre(Scr, (FONT*) Dat[FONT1].dat, stream.str().c_str(), Clipx1+((Clipx2-Clipx1)>>1), Clipy1+((Clipy2-Clipy1)>>1)+i2*20, -1);
             }
-            String = "Died ";
-            String + (Md->Pl[i].Died);
-            String += " times.";
-            textout_centre(Scr, (FONT*) Dat[FONT1].dat, String.Str(), Clipx1+((Clipx2-Clipx1)>>1), Clipy1+((Clipy2-Clipy1)>>1)+20+Opt->Players*20, -1);
+            stream.str(""); stream.clear();
+            stream << "Died ";
+            stream << (Md->Pl[i].Died);
+            stream << " times.";
+            textout_centre(Scr, (FONT*) Dat[FONT1].dat, stream.str().c_str(), Clipx1+((Clipx2-Clipx1)>>1), Clipy1+((Clipy2-Clipy1)>>1)+20+Opt->Players*20, -1);
         } // for (int i = 0; i < Opt->Players; i++)
         Upscr();
         fade_in((PALETTE) Dat[DATPALETTE].dat, 6);

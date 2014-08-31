@@ -1,4 +1,3 @@
-
 /*
 
 Tänne taas tulee kaikki grafiikkajutskat.
@@ -8,7 +7,9 @@ Tänne taas tulee kaikki grafiikkajutskat.
 */
 #ifndef __graph_h       // jos ei ole includettu jo
 #define __graph_h
-#include "tstring.h"
+
+#include <sstream>
+
 int             SCREEN_X               = 640; // Ruudun leveys
 int             SCREEN_Y               = 480; // ja korkeus
 // Upscr() makro
@@ -37,16 +38,18 @@ BITMAP * Scr;
 
 void Takescrshot(PALETTE Pal)
 {
-    Tstring String;
+    std::stringstream stream;
     for (int i = 1; i < 9999; i++)
     {
-        String = "Shot";
-        String + i;
-        String += ".pcx";
-        if (file_exists(String.Str(), 0, NULL)==0)
+        stream.str("");
+        stream.clear();
+        stream << "Shot";
+        stream << i;
+        stream << ".pcx";
+        if (file_exists(stream.str().c_str(), 0, NULL)==0)
         {
-            save_pcx(String.Str(), Scr, Pal);
-            i = 10000;
+            save_pcx(stream.str().c_str(), Scr, Pal);
+            break;
         } // if (!__file_exists(String.Str()))
     } // for (int i = 1; i < 9999; i++)
 } // void Takescrshot()
