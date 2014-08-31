@@ -187,7 +187,7 @@ void Searchfiles()
             size_t extPos = filename.length() - extension.length();
             string end = filename.substr(extPos);
             for(size_t i = 0; i < end.length(); i++) {
-                end[i] = toupper(end[i]);
+                end[i] = tolower(end[i]);
             }
 
             isMapFile = (end == extension);
