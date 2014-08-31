@@ -865,7 +865,6 @@ void Game()
     Upscr();
     fade_in((PALETTE) Dat[DATPALETTE].dat, 6);
     int Quit = 0;
-    Keyboard_update_counter = 0;
     Game_logic_update_counter = 0;
     do
     {
@@ -881,11 +880,8 @@ void Game()
         Do_drawings();            // engine.h // Graffanpiirto
         Setclipping(-1);          // engine.h // Clippaus kokoruudulle
         Upscr();                  // graph.h  // Muistista näytölle
-        do
-        {
-            Checkkeys();              // control.h// Pelaajien kontrolli ja muuta kivaa
-            Keyboard_update_counter--;
-        } while (Keyboard_update_counter>0);
+        Checkkeys();              // control.h// Pelaajien kontrolli ja muuta kivaa
+
         if (Opt->Gametype == GAMETYPE_BOTHUNT) if (Botsalive==0) Quit++;
         if (Opt->Gametype == GAMETYPE_DEATHMATCH)
         {
@@ -894,6 +890,7 @@ void Game()
                         if (Md->Pl[i].Kills[i2] >= Opt->Fraglimit)
                             Quit++;
         } // if (Opt->Gametype == GAMETYPE_DEATHMATCH)
+
         if (Quit > 200) Done = true;
 
     } while (Done == false);

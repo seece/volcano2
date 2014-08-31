@@ -109,7 +109,6 @@ bool Expsample = false;
 // Clippausrajat
 int Clipx1, Clipy1 ,Clipx2, Clipy2, Clipx, Clipy;
 int Lavacount=0;
-int Keyboard_update_counter = 0;
 int Game_logic_update_counter = 0;
 
 // Maindatti
@@ -126,7 +125,6 @@ char * Burn;
 #define Getlava(x, y)           Burn[(y>>2)*(Lev->Mapsizex>>2)+(x>>2)]
 
 void Getmoments(int x1, int y1, int x2, int y2, int *mx, int *my);
-void Keyboard_timer_routine();
 void Game_logic_timer_routine();
 void Update_clock();
 int Rand();
@@ -312,11 +310,7 @@ void Getmoments(int x1, int y1, int x2, int y2, int *mx, int *my)
         break;
     };
 } // void Getmoments(int x1, int y1, int x2, int y2, int *mx, int *my)
-void Keyboard_timer_routine()
-{
-    Keyboard_update_counter++;
-} // void Keyboard_timer_routine()
-END_OF_FUNCTION(Keyboard_timer_routine);
+
 void Game_logic_timer_routine()
 {
     Game_logic_update_counter++;
@@ -6184,10 +6178,7 @@ void InitEngine()
     // *****
     for (int i = 0; i < MAXRANDOM; i++)
         Random[i] = rand();
-    LOCK_FUNCTION(Keyboard_timer_routine);
-    LOCK_VARIABLE(Keyboard_update_counter);
     LOCK_VARIABLE(Game_logic_update_counter);
-    install_int(Keyboard_timer_routine, 6);
     LOCK_FUNCTION(Game_logic_timer_routine);
     if (Opt->Fps == 0)
         Opt->Fps = 40;
@@ -6195,7 +6186,6 @@ void InitEngine()
 } // InitEngine
 void DeInitEngine()
 {
-    remove_int(Keyboard_timer_routine);
     // vapauttaa muistin
     delete Md;
     delete Lev;

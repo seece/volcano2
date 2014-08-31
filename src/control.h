@@ -737,8 +737,8 @@ void Checkkeys()
         if (key[Opt->Nap[i].Down])   PlayerDown(i);
         if (key[Opt->Nap[i].Change])  PlayerChange(i);
         if (key[Opt->Nap[i].Ninjarope])  PlayerNinjarope(i);
-        if (Keyboard_update_counter == 1)
-            if (key[Opt->Nap[i].Jump])   PlayerJump(i);
+        if (key[Opt->Nap[i].Jump])   PlayerJump(i);
+
         if (key[KEY_F8]) {
             Takescrshot((PALETTE) Dat[DATPALETTE].dat);
             key[KEY_F8] = 0;
