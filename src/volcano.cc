@@ -421,7 +421,6 @@ void Menutexts()
                 } // if (Mousein((SCREEN_X>>1)-100-(Length), 180, (SCREEN_X>>1)+100+(Length), 200)) if (Mob==0) if (Moldb==1)
         s = "Game type options";
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100-(Length>>1), 200, -1);
-        delete[] s2;
         if (Mousein((SCREEN_X>>1)-100-(Length), 200, (SCREEN_X>>1)+100+(Length), 220)) if (Mob==0) if (Moldb==1)
                 {
                     Curmenu = 8;
@@ -437,7 +436,8 @@ void Menutexts()
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 220, -1);
         delete[] s2;
         delete[] s;
-        s= "FPS:          ";
+        textbuffer = "FPS:          ";
+        s = &textbuffer[0];
         s[12] = 0;
         s2 = new char[10];
         memset(s2, 0, 10);
@@ -454,7 +454,8 @@ void Menutexts()
             if (Mob==0) if (Moldb==2)         Opt->Fps--;
             if (Opt->Fps<1) Opt->Fps = 10;
         }
-        s= "Parallax:   ";
+        textbuffer = "Parallax:   ";
+        s = &textbuffer[0];
         s[12] = 0;
         s2 = new char[10];
         memset(s2, 0, 10);
@@ -468,7 +469,8 @@ void Menutexts()
                 {
                     Opt->Parallax = (Opt->Parallax==false);
                 } // if (Mousein((SCREEN_X>>1)-100-(Length), 240, (SCREEN_X>>1)+100+(Length), 260)) if (Mob==0) if (Moldb==1)
-        s= "Lava:   ";
+        textbuffer = "Lava:   ";
+        s = &textbuffer[0];
         s[12] = 0;
         s2 = new char[10];
         memset(s2, 0, 10);
@@ -497,7 +499,7 @@ void Menutexts()
                     Opt->Texturedearth++;
                     if (Opt->Texturedearth>2) Opt->Texturedearth = 0;
                 } // if (Mousein((SCREEN_X>>1)-100-(Length), 240, (SCREEN_X>>1)+100+(Length), 260)) if (Mob==0) if (Moldb==1)
-        s= "Back";
+        s = "Back";
         Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s, SCREEN_X>>1, 340, -1);
         if (Mousein((SCREEN_X>>1)-(Length), 340, (SCREEN_X>>1)+(Length), 370))     if (Mob==0) if (Moldb==1)
