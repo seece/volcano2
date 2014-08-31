@@ -236,6 +236,7 @@ void Menutexts()
 {
     int Length = 0;
     char * s = 0;
+    char s2[20];
     std::string textbuffer;
     switch(Curmenu)
     {
@@ -407,13 +408,11 @@ void Menutexts()
     case 4: // Game options
     {
         s = "Game type:";
-        char * s2 = new char[20];
         memset(s2, 0, 20);
         strcpy(s2, Gametypename[Opt->Gametype]);
         Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100-(Length>>1), 180, -1);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 180, -1);
-        delete[] s2;
         if (Mousein((SCREEN_X>>1)-100-(Length), 180, (SCREEN_X>>1)+100+(Length), 200)) if (Mob==0) if (Moldb==1)
                 {
                     Opt->Gametype ++;
@@ -429,23 +428,19 @@ void Menutexts()
         s = new char[30];
         memset(s, 0, 30);
         strcpy(s, "Start cash: ");
-        s2 = new char[10];
         memset(s2, 0, 10);
         itoa_fake(Opt->Startcash, s2, 10);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100-(Length>>1), 220, -1);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 220, -1);
-        delete[] s2;
         delete[] s;
         textbuffer = "FPS:          ";
         s = &textbuffer[0];
         s[12] = 0;
-        s2 = new char[10];
         memset(s2, 0, 10);
         itoa_fake(Opt->Fps, s2, 10);
 //      strcat(s, s2);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100-(Length>>1), 240, -1);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 240, -1);
-        delete[] s2;
         if (Mousein((SCREEN_X>>1)-100-(Length), 240, (SCREEN_X>>1)+100+(Length), 260))
         {
 
@@ -457,14 +452,12 @@ void Menutexts()
         textbuffer = "Parallax:   ";
         s = &textbuffer[0];
         s[12] = 0;
-        s2 = new char[10];
         memset(s2, 0, 10);
         if (Opt->Parallax) strcpy(s2, "On");
         else strcpy(s2, "Off");
 //      strcat(s, s2);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100-(Length>>1), 260, -1);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 260, -1);
-        delete[] s2;
         if (Mousein((SCREEN_X>>1)-100-(Length), 260, (SCREEN_X>>1)+100+(Length), 280)) if (Mob==0) if (Moldb==1)
                 {
                     Opt->Parallax = (Opt->Parallax==false);
@@ -472,27 +465,23 @@ void Menutexts()
         textbuffer = "Lava:   ";
         s = &textbuffer[0];
         s[12] = 0;
-        s2 = new char[10];
         memset(s2, 0, 10);
         if (Opt->Lava) strcpy(s2, "On");
         else strcpy(s2, "Off");
 //      strcat(s, s2);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100-(Length>>1), 280, -1);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 280, -1);
-        delete[] s2;
         if (Mousein((SCREEN_X>>1)-100-(Length), 280, (SCREEN_X>>1)+100+(Length), 300)) if (Mob==0) if (Moldb==1)
                 {
                     Opt->Lava = (Opt->Lava==false);
                 } // if (Mousein((SCREEN_X>>1)-100-(Length), 240, (SCREEN_X>>1)+100+(Length), 260)) if (Mob==0) if (Moldb==1)
         {   s= "Textured earth:      ";
 
-            s2 = new char[10];
             memset(s2, 0, 10);
             itoa_fake(Opt->Texturedearth, s2, 10);
 //      strcat(s, s2);
             textout(Scr, (FONT*) Dat[TITLEFONT].dat, "Textured earth:", (SCREEN_X>>1)-100-(Length>>1), 300, -1);
             textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 300, -1);
-            delete[] s2;
         }
         if (Mousein((SCREEN_X>>1)-100-(Length), 300, (SCREEN_X>>1)+100+(Length), 320)) if (Mob==0) if (Moldb==1)
                 {
@@ -591,13 +580,11 @@ void Menutexts()
         case GAMETYPE_DEATHMATCH:
         {
             s = "Frag limit:   ";
-            char * s2 = new char[20];
             memset(s2, 0, 20);
             itoa_fake(Opt->Fraglimit, s2, 10);
             Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
             textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100-(Length>>1), 200, -1);
             textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 200, -1);
-            delete[] s2;
             if (Mousein((SCREEN_X>>1)-100-(Length), 200, (SCREEN_X>>1)+100+(Length>>1), 220)) if (Mob==0) if (Moldb)
                     {
                         if (Mob==0) if (Moldb== 1) Opt->Fraglimit +=5;
@@ -615,13 +602,11 @@ void Menutexts()
         case GAMETYPE_BOTHUNT:
         {
             s = "Bots:     ";
-            char * s2 = new char[20];
             memset(s2, 0, 20);
             itoa_fake(Opt->Bots, s2, 10);
             Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
             textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100-(Length>>1), 200, -1);
             textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 200, -1);
-            delete[] s2;
             if (Mousein((SCREEN_X>>1)-100-(Length), 200, (SCREEN_X>>1)+100+(Length>>1), 220)) if (Mob==0) if (Moldb)
                     {
                         /*         if (Mob==0) if (Moldb== 1) Opt->Bots ++;
@@ -633,13 +618,11 @@ void Menutexts()
                         Curmenu = 9;
                     } // if (Mousein((SCREEN_X>>1)-100-(Length), 180, (SCREEN_X>>1)+100+(Length>>1), 200)) if (Mob==0) if (Moldb==1)
             s = "Difficulty:   ";
-            s2 = new char[20];
             memset(s2, 0, 20);
             strcpy(s2, Botdifficultyname[Opt->Botdifficulty-1]);
             Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
             textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100-(Length>>1), 220, -1);
             textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 220, -1);
-            delete[] s2;
             if (Mousein((SCREEN_X>>1)-100-(Length), 220, (SCREEN_X>>1)+100+(Length>>1), 240)) if (Mob==0) if (Moldb)
                     {
                         if (Mob==0) if (Moldb== 1) Opt->Botdifficulty ++;
@@ -658,7 +641,6 @@ void Menutexts()
         break;
     case 9: // Select bot weapons
     {
-        char * s2 = new char[10];
         memset(s2, 0, 10);
         s = "Pistol bots:";
         itoa_fake(Opt->Botweapons[0], s2, 10);
@@ -795,7 +777,6 @@ void Menutexts()
                     Opt->Bots = 0;
                     for (int i2 = 0; i2 < Difbotweapons; i2++) Opt->Bots += Opt->Botweapons[i2];
                 }
-        delete[] s2;
     }
     break;
     };
