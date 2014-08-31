@@ -6201,6 +6201,7 @@ void DeInitEngine()
     delete Lev;
     delete Add;
 } // DeInitEngine
+
 #ifndef EDITOR
 void Defaults()                 // Options asetusten resetointi
 {
@@ -6230,6 +6231,9 @@ void Defaults()                 // Options asetusten resetointi
     Opt->Nap[0].Down =   SxS;
     Opt->Nap[0].Use =    SxTAB;
 
+    Opt->Xres = 640;
+    Opt->Yres = 480;
+
     Opt->Lava = true;
 
     Opt->Nap[0].Change = SxCAPSLOCK;
@@ -6256,6 +6260,7 @@ void Defaults()                 // Options asetusten resetointi
     Opt->Startcash = 20000;        // Rahhaa 5000
     Opt->Lives = 5;               // elämiä 5
     Opt->Fps = 40;
-} // Defaults
+}
 #endif
+
 #endif
