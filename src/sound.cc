@@ -71,6 +71,8 @@ bool Init_Music(SoundOptions* sndOpt)
     if (soundOpt->Bits16)       md_mode |= DMODE_16BITS;
     if (soundOpt->Interpolated) md_mode |= DMODE_INTERP;
     if (soundOpt->Stereo)       md_mode |= DMODE_STEREO;
+    md_mode |= DMODE_SOFT_MUSIC;
+    md_mode |= DMODE_SOFT_SNDFX;
 
     MikMod_RegisterLoader(&load_s3m);
     MikMod_RegisterLoader(&load_xm);   // Register the loaders we want to use..
@@ -101,6 +103,8 @@ bool Init_Music(SoundOptions* sndOpt)
            (md_mode&DMODE_INTERP) ? "interpolated":"normal",
            (md_mode&DMODE_STEREO) ? "stereo":"mono",
            md_mixfreq);
+
+    MikMod_EnableOutput();
 }
 
 
@@ -109,6 +113,7 @@ void DeInit_Music()
     Player_Stop();
     Player_Free(gameMusic);
     Player_Free(menuMusic);
+    MikMod_DisableOutput();
     MikMod_Exit();
 }
 
