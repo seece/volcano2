@@ -226,9 +226,14 @@ void Burntitle(BITMAP * bmp)
         } //   for (int y = 0; y < bmp->h; y++)   for (int x = 0; x < bmp->w; x++)
 } // void Burntitle(BITMAP * bmp)
 
+/**
+ * Used to setup keys
+ *
+ * @return scancode
+ */
 int Getkey()
 {    
-    return readkey();
+    return readkey()>>8;
 }
 
 void Menutexts()
