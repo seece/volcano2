@@ -47,17 +47,10 @@ enum Samples {
 };
 
 
-void Loadsamples(); // lataa samplet
-void Free_sounds(); // vapauttaa muistin
-// Neljä erilaista versiota playsamplesta
-
 void Playsample(int smp,int Vol, int Pan);
 void Playsample(int smp,int Vol, int Pan, int Freq);
 void StartGameMusic();
 void StartMenuMusic();
-void StartMusic();
-
-void SoundUpdate(int elapsedMsec);
 
 /**
  * Inits MikMod / prints error messages.

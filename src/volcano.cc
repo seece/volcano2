@@ -143,8 +143,6 @@ int main(int Argc, char ** Args)
     fflush(stdout);
     fade_out (4);
 
-    if (Opt->sound.Sound) Loadsamples();// Lataa samplet
-
     InitData();   // Lataa graffat paletit ja muuta kivaa
     SCREEN_X = Opt->Xres;
     SCREEN_Y = Opt->Yres;
@@ -153,7 +151,6 @@ int main(int Argc, char ** Args)
 
     Menu();
     Saveoptions();
-    if (Opt->sound.Sound) Free_sounds();  // Vapautetaan samplet
     if (Opt->sound.Sound) DeInit_Music(); // Vapautetaan musat
     DeInitEngine(); // Vapautetaan mootorin muistinvaraukset
     DeInitGraph();  // Graffatila pois ja tekstitila päälle
@@ -254,6 +251,7 @@ void Menutexts()
                         {
                             Done = false;
                             Game();
+                            StartMenuMusic();
                             fade_out(6);
                             clear(Scr);
                             draw_rle_sprite(Scr, (RLE_SPRITE*) Dat[TITLE].dat, (SCREEN_X>>1)-(((RLE_SPRITE*) Dat[TITLE].dat)->w>>1), 125-(((RLE_SPRITE*) Dat[TITLE].dat)->h>>1));
@@ -794,7 +792,6 @@ void Menu()
     set_palette((PALETTE) Dat[TITLEPAL].dat);
     StartMenuMusic();
 
-
     int Timer = 0;
     do
     {
@@ -829,7 +826,6 @@ void Menu()
             key[KEY_F8]=0;
             Takescrshot((PALETTE) Dat[TITLEPAL].dat);
         }
-        SoundUpdate(20); // TODO: elapsed time
     } while (!Exit);
     fade_out(4);
 } // Menu
@@ -870,7 +866,6 @@ void Game()
     {
         Update_clock();
         Update_timers();          // Timereiden päivitys
-        SoundUpdate(20);          // TODO: elapsed time
         do
         {
             Do_game_logic();          // engine.h // pelilogiikan päivitys
@@ -974,8 +969,6 @@ void Game()
         readkey();
     } //     if (Opt->Gametype == GAMETYPE_DEATHMATCH)
     Setclipping(-1);
-    StartGameMusic();            // initialize modplayer to play this module
-    StartMusic();
 } // Game
 
 
