@@ -1,5 +1,5 @@
 CXX=g++
-CXXFLAGS=-g -O0 -Wall -Wno-write-strings -Wno-deprecated-declarations -fpermissive
+CXXFLAGS=-std=c++11 -g -O0 -Wall -Wno-write-strings -Wno-deprecated-declarations -fpermissive
 LDFLAGS=`allegro-config --cflags --libs` `libmikmod-config --cflags --libs`
 LDLIBS=
 SRC=src/volcano.cc src/sound.cc
