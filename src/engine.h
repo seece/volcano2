@@ -6212,6 +6212,7 @@ void Defaults()                 // Options asetusten resetointi
     Opt->sound.Sndfreq = 44100;     // Laatua
     Opt->sound.Bits16 = true;       // 16Bittinen tottakai
     Opt->sound.Interpolated = true; // interpoloitu
+    Opt->sound.Stereo = true;
     Opt->sound.Sound = true;        // Ja vielä päälle
     Opt->Players = 2;                   // pelaajat 2 max 3
     Opt->Parallax = true;
