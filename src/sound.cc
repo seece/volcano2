@@ -52,7 +52,7 @@ struct SoundMessageQueue {
     {
         unsigned ticketNum = ticketCounter++;
         std::unique_lock<std::mutex> waitLock;
-        while(nextTicket < ticketNum) {
+        while(nextTicket != ticketNum) {
             // Spin lock
         }
     }
