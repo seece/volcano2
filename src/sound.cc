@@ -6,31 +6,85 @@
 #include <cstdio>
 #include <ctime>
 #include <mikmod.h>
-
-
-#define NOT_IMPLEMENTED_MESSAGE() printf("%s not yet implemented\n", __FUNCTION__);
-
-using std::min;
+#include <queue>
+#include <thread>
+#include <mutex>
+#include <atomic>
 
 const int maxChan = 64; // TODO: probably not reasonable
+
+/*--------------------------
+ * Thread messaging
+ *-------------------------*/
+
+enum class SMesgT {
+    PLAY_SAMPLE,
+    START_GAME_MUSIC,
+    START_MENU_MUSIC,
+    STOP_UPDATER
+};
+
+struct SoundMessage {
+    SMesgT type;
+    int sampleIndex;
+    int sampleVolume;
+    int samplePan;
+    int sampleFreq;
+    SoundMessage(SMesgT t) : type(t) {}
+};
+
+
+struct SoundMessageQueue {
+    std::queue<SoundMessage> messages;
+    std::atomic<unsigned> ticketCounter;
+    std::atomic<unsigned> nextTicket;
+
+    SoundMessageQueue() : ticketCounter(0), nextTicket(0) {}
+
+    void send(SoundMessage mesg)
+    {
+        lock();
+        messages.push(mesg);
+        unlock();
+    }
+
+    void lock()
+    {
+        unsigned ticketNum = ticketCounter++;
+        std::unique_lock<std::mutex> waitLock;
+        while(nextTicket < ticketNum) {
+            // Spin lock
+        }
+    }
+
+    void unlock()
+    {
+        nextTicket++;
+    }
+};
 
 /*--------------------------
  * Globals
  *-------------------------*/
 
 MODULE * gameMusic , *menuMusic;                 // Module
-MODULE * currentMusic;
 SAMPLE * Samp[SAMPLE_COUNT];             // Kaikki samplet
 struct SoundOptions* soundOpt;
-SWORD musicCurVolume;
+
+std::thread updaterThread;
+SoundMessageQueue soundMessages;
+
 
 /*-------------------------
  * Local declarations
  *------------------------*/
 
-void Playsample(SAMPLE *smp);
-void Playsample(SAMPLE *smp,int Vol, int Pan, int Freq);
-void StartMusic();
+void playSample(SAMPLE *smp,int Vol, int Pan, int Freq);
+void startMusic();
+void loadSamples();
+void freeSamples();
+void audioUpdater(SoundMessageQueue* smessages);
+bool processSoundMessages(SoundMessageQueue& smessages);
 
 /*-------------------------
  * Implementations
@@ -38,23 +92,12 @@ void StartMusic();
 
 void StartGameMusic()
 {
-    puts(__FUNCTION__);
-    currentMusic = gameMusic;
-    StartMusic();
+    soundMessages.send(SoundMessage(SMesgT::START_GAME_MUSIC));
 }
 
 void StartMenuMusic()
 {
-    puts(__FUNCTION__);
-    currentMusic = menuMusic;
-    StartMusic();
-}
-
-void StartMusic()
-{
-    musicCurVolume = 100;
-    Player_SetVolume(musicCurVolume);
-    if (soundOpt->Sound) Player_Start(currentMusic);         // start playing the music
+    soundMessages.send(SoundMessage(SMesgT::START_MENU_MUSIC));
 }
 
 bool Init_Music(SoundOptions* sndOpt)
@@ -106,20 +149,30 @@ bool Init_Music(SoundOptions* sndOpt)
            (md_mode&DMODE_STEREO) ? "stereo":"mono",
            md_mixfreq);
 
+    loadSamples();
+
+    Player_SetVolume(100);
     MikMod_EnableOutput();
+
+    updaterThread = std::thread(audioUpdater, &soundMessages);
+
+    return true;
 }
 
 
 void DeInit_Music()
 {
+    soundMessages.send(SoundMessage(SMesgT::STOP_UPDATER));
+    updaterThread.join();
     Player_Stop();
     Player_Free(gameMusic);
     Player_Free(menuMusic);
     MikMod_DisableOutput();
+    freeSamples();
     MikMod_Exit();
 }
 
-void Loadsamples()
+void loadSamples()
 {
     Samp[SAMP_PISTOL]        = Sample_Load("sounds/pistol.wav");
     Samp[SAMP_ROCKET]        = Sample_Load("sounds/rlaunch.wav");
@@ -150,14 +203,37 @@ void Loadsamples()
     Samp[SAMP_EMPTYSHELL]    = Sample_Load("sounds/emptys.wav");
 }
 
-void Free_sounds()
+void freeSamples()
 {
     for (int i = 0; i < SAMPLE_COUNT; i++) {
         Sample_Free(Samp[i]);
     }
 }
 
-void Playsample(SAMPLE *smp,int Vol, int Pan, int Freq)
+void Playsample(int smp,int Vol, int Pan)
+{
+    Playsample(smp, Vol, Pan, 0);
+}
+
+void Playsample(int smp,int Vol, int Pan, int Freq)
+{
+    SoundMessage mesg(SMesgT::PLAY_SAMPLE);
+    mesg.sampleIndex = smp;
+    mesg.sampleVolume = Vol;
+    mesg.samplePan = Pan;
+    mesg.sampleFreq = Freq;
+    soundMessages.send(mesg);
+}
+
+void startMusic(MODULE* mus)
+{
+    if (soundOpt->Sound) {
+        Player_SetPosition(0);
+        Player_Start(mus);
+    }
+}
+
+void playSample(SAMPLE *smp,int Vol, int Pan, int Freq)
 {
     if (!Freq) Freq = smp->speed; // pitäis olla suht koht selvät...
     if (soundOpt->Sound) {
@@ -168,36 +244,65 @@ void Playsample(SAMPLE *smp,int Vol, int Pan, int Freq)
     }
 }
 
-void Playsample(SAMPLE *smp)
-{
-    Playsample(smp, 0, 128, 0);
-}
 
-void Playsample(int smp,int Vol, int Pan)
+/**
+ * Process messages in audioUpdater threads message queue
+ *
+ * @param the message queue
+ * @return true if there was no stop message
+ */
+bool processSoundMessages(SoundMessageQueue& smessages)
 {
-    Playsample(Samp[smp], Vol, Pan, 0);
-}
+    bool ret = true;
 
-void Playsample(int smp,int Vol, int Pan, int Freq)
-{
-    Playsample(Samp[smp], Vol, Pan, Freq);
-}
+    std::queue<SoundMessage> messages;
+    smessages.lock();
+    messages.swap(smessages.messages);
+    smessages.unlock();
 
-void SoundUpdate(int elapsedMsec)
-{
-#if 0
-    if(soundOpt->Musicvolume != musicCurVolume) {
-        // TODO: hackety hack / not going to work
-        int change = min(elapsedMsec/20, 1);
-        if(soundOpt->Musicvolume < musicCurVolume) {
-            change = -change;
+    while(!messages.empty() && ret) {
+        SoundMessage& mesg = messages.front();
+
+        switch(mesg.type) {
+        case SMesgT::PLAY_SAMPLE: {
+            playSample(Samp[mesg.sampleIndex],
+                       mesg.sampleVolume,
+                       mesg.samplePan,
+                       mesg.sampleFreq);
+            break;
         }
-        musicCurVolume += change;
 
-        Player_SetVolume(musicCurVolume);
+        case SMesgT::START_GAME_MUSIC: {
+            startMusic(gameMusic);
+            break;
+        }
+
+        case SMesgT::START_MENU_MUSIC: {
+            startMusic(menuMusic);
+            break;
+        }
+
+        case SMesgT::STOP_UPDATER: {
+            ret = false;
+            break;
+        }
+
+        }
+
+        messages.pop();
     }
 
-#endif
+    return ret;
+}
 
-    MikMod_Update();
+void audioUpdater(SoundMessageQueue* smessages)
+{
+    bool run = true;
+    while(run) {
+        run = processSoundMessages(*smessages);
+        if(!Player_Active()) {
+            startMusic(Player_GetModule());
+        }
+        MikMod_Update();
+    }
 }
