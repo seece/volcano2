@@ -96,6 +96,9 @@ Moottori.
 #define         ACTION_LASERCANNON   4
 
 #define MAXRANDOM       100000
+
+const unsigned char DEFAULT_UPS = 120; // Updates/s
+
 int Frame1, Frame2;
 time_t Clock1, Clock2, Framecount;
 float Fps;
@@ -6180,9 +6183,9 @@ void InitEngine()
         Random[i] = rand();
     LOCK_VARIABLE(Game_logic_update_counter);
     LOCK_FUNCTION(Game_logic_timer_routine);
-    if (Opt->Fps == 0)
-        Opt->Fps = 40;
-    install_int_ex(Game_logic_timer_routine, BPS_TO_TIMER(Opt->Fps));
+    if (Opt->ups == 0)
+        Opt->ups = DEFAULT_UPS;
+    install_int_ex(Game_logic_timer_routine, BPS_TO_TIMER(Opt->ups));
 } // InitEngine
 void DeInitEngine()
 {
@@ -6250,7 +6253,7 @@ void Defaults()                 // Options asetusten resetointi
     Opt->Botdifficulty = 1;
     Opt->Startcash = 20000;        // Rahhaa 5000
     Opt->Lives = 5;               // elämiä 5
-    Opt->Fps = 40;
+    Opt->ups = DEFAULT_UPS;
 }
 #endif
 

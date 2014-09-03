@@ -438,17 +438,17 @@ void Menutexts()
         s = &textbuffer[0];
         s[12] = 0;
         memset(s2, 0, 10);
-        itoa_fake(Opt->Fps, s2, 10);
+        itoa_fake(Opt->ups, s2, 10);
 //      strcat(s, s2);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100-(Length>>1), 240, -1);
         textout_centre(Scr, (FONT*) Dat[TITLEFONT].dat, s2, (SCREEN_X>>1)+100, 240, -1);
         if (Mousein((SCREEN_X>>1)-100-(Length), 240, (SCREEN_X>>1)+100+(Length), 260))
         {
 
-            if (Mob==0) if (Moldb==1)         Opt->Fps++;
-            if (Opt->Fps>=161) Opt->Fps = 1;
-            if (Mob==0) if (Moldb==2)         Opt->Fps--;
-            if (Opt->Fps<1) Opt->Fps = 10;
+            if (Mob==0) if (Moldb==1)         Opt->ups++;
+            if (Opt->ups>=161) Opt->ups = 1;
+            if (Mob==0) if (Moldb==2)         Opt->ups--;
+            if (Opt->ups<1) Opt->ups = 10;
         }
         textbuffer = "Parallax:   ";
         s = &textbuffer[0];
@@ -866,16 +866,22 @@ void Game()
     {
         Update_clock();
         Update_timers();          // Timereiden päivitys
-        do
+        while(Game_logic_update_counter>0)
         {
             Do_game_logic();          // engine.h // pelilogiikan päivitys
             Animate();                // engine.h // Animoi
+
+            // Reading input and game logic stuff
+            // Currently has to be done <= 1 times
+            // per Do_game_logic()
+            Checkkeys();              // control.h// Pelaajien kontrolli ja muuta kivaa
+
             Game_logic_update_counter--;
-        } while (Game_logic_update_counter>0);
+        }
         Do_drawings();            // engine.h // Graffanpiirto
         Setclipping(-1);          // engine.h // Clippaus kokoruudulle
         Upscr();                  // graph.h  // Muistista näytölle
-        Checkkeys();              // control.h// Pelaajien kontrolli ja muuta kivaa
+
 
         if (Opt->Gametype == GAMETYPE_BOTHUNT) if (Botsalive==0) Quit++;
         if (Opt->Gametype == GAMETYPE_DEATHMATCH)

@@ -294,7 +294,7 @@ typedef struct
     struct SoundOptions sound;
     bool Vsync;
     char Players;
-    unsigned char Fps;
+    unsigned char ups;
     bool Set;
     bool Parallax;
     bool Realrope, Lava;
