@@ -5874,7 +5874,7 @@ unsigned char * Get_texture_colors(BITMAP * Tex, int *Colors)
 {
     int colors = 0;
     unsigned char * Color=0;
-    int C;
+    int C = 0;
     char Hepcolor[255]= {0};
     bool Found = false;
     int Size = 199;
@@ -5928,7 +5928,7 @@ void Put_texture()
     int Colors = 0;
     unsigned char * Color = Get_texture_colors(Tex, &Colors);
     bool Upd = false;
-    int C;
+    int C = 0;
     color_map = &light_table;
     bool Isit = false;
     if (Opt->Texturedearth > 1)

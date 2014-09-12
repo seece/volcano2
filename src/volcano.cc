@@ -127,6 +127,7 @@ void Loadoptions()
 
 int main(int Argc, char ** Args)
 {
+	openSystemConsole();
     key_led_flag = 0; // numlockit capslock scrolllockit hus veks pois
     if (Argc > 1) Multi = atoi(Args[1]); // parametri (siis frameskip)
     InitAllegro(); // Allegro hyrräämään

@@ -6,25 +6,21 @@
 void Playsample(int smp,int Vol, int Pan)
 {
 	puts(__FUNCTION__);
-	puts("\n");
 }
 
 void Playsample(int smp,int Vol, int Pan, int Freq)
 {
 	puts(__FUNCTION__);
-	puts("\n");
 }
 
 void StartGameMusic()
 {
 	puts(__FUNCTION__);
-	puts("\n");
 }
 
 void StartMenuMusic()
 {
 	puts(__FUNCTION__);
-	puts("\n");
 }
 
 /**
@@ -35,7 +31,6 @@ void StartMenuMusic()
 bool Init_Music(SoundOptions* sndOpt)
 {
 	puts(__FUNCTION__);
-	puts("\n");
 	return true;
 }
 
@@ -43,7 +38,6 @@ bool Init_Music(SoundOptions* sndOpt)
 void DeInit_Music()
 {
 	puts(__FUNCTION__);
-	puts("\n");
 }
 #else
 #include "sound.h"

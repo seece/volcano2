@@ -6,6 +6,6 @@
 #include <vector>
 
 std::vector<std::string> getDirectoryFilenames(std::string dir);
-
+void openSystemConsole(); // for windows systems
 
 #endif
