@@ -20,6 +20,14 @@ void InitData()
 {
     Dat = load_datafile("data.dat");
     Exp = load_datafile("exp.dat");
+
+	if (!Dat) {
+		fputs("data.dat not found\n", stderr);
+		exit(1);
+	} else if (!Exp) {
+		fputs("exp.dat not found\n", stderr);
+		exit(1);
+	}
 } // InitData
 void DeInitData()
 {
