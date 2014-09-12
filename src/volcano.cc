@@ -1,4 +1,4 @@
-
+#define _CRT_SECURE_NO_WARNINGS
 /*
  Volcano 2 The great peli.
  (C) 1999 Tero Laitinen /Replica§
@@ -7,17 +7,16 @@
 unsigned _stklen = 16834*1024;
 
 #include <stdlib.h>
-#include <unistd.h>
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
 #include <time.h>
 #include <allegro.h>
-#include <dirent.h>
 #include <vector>
 #include <string>
 #include <sstream>
 
+#include "system.h"
 #include "sound.h"    // äänihommelit
 #include "util.h"
 
@@ -57,7 +56,7 @@ std::vector<std::string> mapFilenames;
 
 
 void Sayhello();                   // tervetulotoivotus
-int main(int Argc, char ** Args); // pääohjelma
+int main(int argc, char ** args); // pääohjelma
 void Searchfiles();                // etsii .map päätteiset tiedostot
 void Burntitle(BITMAP * bmp);      // Logon poltto
 void Menutexts();                  // valikon tekstit
@@ -160,13 +159,37 @@ int main(int Argc, char ** Args)
 	return 0;
 } // main
 
+// For Allegro on Windows.
+END_OF_MAIN();
+
 /**
- * Populates the global vector<string> mapFilenames
- *
- * TODO: remove (hack)
+ * Returns a vector of valid map files in game directory.
  */
-void Searchfiles()
+std::vector<std::string> FindMapFiles(std::string extension)
 {
+	std::vector<std::string> names = getDirectoryFilenames(".");
+	std::vector<std::string> output;
+
+    for (auto filename : names) {
+        bool isMapFile = false;
+        if(filename.length() > extension.length()) {
+            size_t extPos = filename.length() - extension.length();
+            std::string end = filename.substr(extPos);
+            for(size_t i = 0; i < end.length(); i++) {
+                end[i] = tolower(end[i]);
+            }
+
+            isMapFile = (end == extension);
+        }
+
+        if(isMapFile) {
+            output.push_back(filename);
+        }
+	}
+
+	return output;
+
+	/*
     mapFilenames.clear();
 
     DIR* dirStream = opendir(".");
@@ -198,6 +221,7 @@ void Searchfiles()
     
     closedir(dirStream);
     delete entry;
+	*/
 } // void Searchfiles()
 
 void Burntitle(BITMAP * bmp)
@@ -514,7 +538,7 @@ void Menutexts()
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100, 200, -1);
         if (Mousein((SCREEN_X>>1)-100, 200, (SCREEN_X>>1)+160, 220)) if (Mob==0) if (Moldb==1)
                     Opt->Nap[Pl].Up =  Getkey();
-        s = scancode_to_name(Opt->Nap[Pl].Up);
+        s = (char*)scancode_to_name(Opt->Nap[Pl].Up);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)+100, 200, -1);
 
         s = "Down: ";
@@ -522,49 +546,49 @@ void Menutexts()
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100, 220, -1);
         if (Mousein((SCREEN_X>>1)-100, 220, (SCREEN_X>>1)+160, 240)) if (Mob==0) if (Moldb==1)
                     Opt->Nap[Pl].Down = Getkey();
-        s = scancode_to_name(Opt->Nap[Pl].Down);
+        s = (char*)scancode_to_name(Opt->Nap[Pl].Down);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)+100, 220, -1);
         s = "Left: ";
         Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100, 240, -1);
         if (Mousein((SCREEN_X>>1)-100, 240, (SCREEN_X>>1)+160, 260)) if (Mob==0) if (Moldb==1)
                     Opt->Nap[Pl].Left = Getkey();
-        s = scancode_to_name(Opt->Nap[Pl].Left);
+        s = (char*)scancode_to_name(Opt->Nap[Pl].Left);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)+100, 240, -1);
         s = "Right: ";
         Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100, 260, -1);
         if (Mousein((SCREEN_X>>1)-100, 260, (SCREEN_X>>1)+160, 280)) if (Mob==0) if (Moldb==1)
                     Opt->Nap[Pl].Right = Getkey();
-        s = scancode_to_name(Opt->Nap[Pl].Right);
+        s = (char*)scancode_to_name(Opt->Nap[Pl].Right);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)+100, 260, -1);
         s = "Use: ";
         Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100, 280, -1);
         if (Mousein((SCREEN_X>>1)-100, 280, (SCREEN_X>>1)+160, 300)) if (Mob==0) if (Moldb==1)
                     Opt->Nap[Pl].Use = Getkey();
-        s = scancode_to_name(Opt->Nap[Pl].Use);
+        s = (char*)scancode_to_name(Opt->Nap[Pl].Use);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)+100, 280, -1);
         s = "Change: ";
         Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100, 300, -1);
         if (Mousein((SCREEN_X>>1)-100, 300, (SCREEN_X>>1)+160, 320)) if (Mob==0) if (Moldb==1)
                     Opt->Nap[Pl].Change = Getkey();
-        s = scancode_to_name(Opt->Nap[Pl].Change);
+        s = (char*)scancode_to_name(Opt->Nap[Pl].Change);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)+100, 300, -1);
         s = "Jump: ";
         Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100, 320, -1);
         if (Mousein((SCREEN_X>>1)-100, 320, (SCREEN_X>>1)+160, 340)) if (Mob==0) if (Moldb==1)
                     Opt->Nap[Pl].Jump = Getkey();
-        s = scancode_to_name(Opt->Nap[Pl].Jump);
+        s = (char*)scancode_to_name(Opt->Nap[Pl].Jump);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)+100, 320, -1);
         s = "Ninjarope: ";
         Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)-100, 340, -1);
         if (Mousein((SCREEN_X>>1)-100, 340, (SCREEN_X>>1)+160, 360)) if (Mob==0) if (Moldb==1)
                     Opt->Nap[Pl].Ninjarope = Getkey();
-        s = scancode_to_name(Opt->Nap[Pl].Ninjarope);
+        s = (char*)scancode_to_name(Opt->Nap[Pl].Ninjarope);
         textout(Scr, (FONT*) Dat[TITLEFONT].dat, s, (SCREEN_X>>1)+100, 340, -1);
         s = "Back";
         Length = text_length((FONT*) Dat[TITLEFONT].dat, s);
@@ -787,9 +811,10 @@ void Menutexts()
 
 void Menu()
 {
-    Searchfiles();
+	mapFilenames = FindMapFiles(".map");
+
 //  Game();
-    set_palette((PALETTE) Dat[TITLEPAL].dat);
+    set_palette(*(PALETTE*) Dat[TITLEPAL].dat);
     StartMenuMusic();
 
     int Timer = 0;
@@ -818,13 +843,13 @@ void Menu()
         Upscr();
         if (Mustfadein)
         {
-            fade_in((PALETTE) Dat[TITLEPAL].dat, 6);
+            fade_in(*(PALETTE*) Dat[TITLEPAL].dat, 6);
             Mustfadein = false;
         } //      if (Mustfadein)
         if (key[KEY_ESC]) Exit = true;
         if (key[KEY_F8]) {
             key[KEY_F8]=0;
-            Takescrshot((PALETTE) Dat[TITLEPAL].dat);
+            Takescrshot(*(PALETTE*) Dat[TITLEPAL].dat);
         }
     } while (!Exit);
     fade_out(4);
@@ -859,7 +884,7 @@ void Game()
     Animate();
     Do_drawings();
     Upscr();
-    fade_in((PALETTE) Dat[DATPALETTE].dat, 6);
+    fade_in(*(PALETTE*) Dat[DATPALETTE].dat, 6);
     int Quit = 0;
     Game_logic_update_counter = 0;
     do
@@ -930,7 +955,7 @@ void Game()
             textout_centre(Scr, (FONT*) Dat[FONT1].dat, stream.str().c_str(), Clipx1+((Clipx2-Clipx1)>>1), Clipy1+((Clipy2-Clipy1)>>1), -1);
         } // for (int i = 0; i < Opt->Players; i++)
         Upscr();
-        fade_in((PALETTE) Dat[DATPALETTE].dat, 6);
+        fade_in(*(PALETTE*) Dat[DATPALETTE].dat, 6);
         while (keypressed())  {
             readkey();
         }
@@ -968,7 +993,7 @@ void Game()
             textout_centre(Scr, (FONT*) Dat[FONT1].dat, stream.str().c_str(), Clipx1+((Clipx2-Clipx1)>>1), Clipy1+((Clipy2-Clipy1)>>1)+20+Opt->Players*20, -1);
         } // for (int i = 0; i < Opt->Players; i++)
         Upscr();
-        fade_in((PALETTE) Dat[DATPALETTE].dat, 6);
+        fade_in(*(PALETTE*) Dat[DATPALETTE].dat, 6);
         while (keypressed())  {
             readkey();
         }

@@ -1,0 +1,37 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+
+# Compiled Dynamic libraries
+*.so
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+
+
+# Compiled binaries
+*.exe
+*.dll
+
+# Visual Studio cruft
+Debug/
+Release/
+bin/
+obj/
+ipch/
+*.log
+*.suo
+*.ncb
+*.sbr
+*.user
+*.sdf
+*.opensdf
+
+# Project specific
+*.swp
+*.swo
+*.*~
+allegro-4.4.2-msvc-10.0/

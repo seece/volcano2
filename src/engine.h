@@ -4375,6 +4375,9 @@ void Update_plate(int i)
             case BLD_REINFPLATE:
                 bmp = (BITMAP*) Dat[DATGRAYPLATE].dat;
                 break; // BLD_REINFPLATE:
+			default:
+				bmp = nullptr;
+				break;
             }; // switch(Md->Bld[i].Type)
             draw_sprite(Md->Map, bmp, (Md->Bld[i].X>>16)-(Md->Bld[i].Dat[0]>>1), (Md->Bld[i].Y>>16)-(Md->Bld[i].Dat[0]>>1));
             stretch_sprite(Parallax, bmp, ((Md->Bld[i].X>>16)-(Md->Bld[i].Dat[0]>>1))>>1, ((Md->Bld[i].Y>>16)-(Md->Bld[i].Dat[0]>>1))>>1, Md->Bld[i].Dat[0]>>1, Md->Bld[i].Dat[0]>>1);
@@ -4870,7 +4873,9 @@ void Draw_vehicles(int Screen)
     // X = Pelaajan (Count2) X ilman desimaaleja
     // Y = Pelaajan (Count2) Y ilman desimaaleja
 
-    BITMAP * bmp, *bmp2, *bmp3;
+    BITMAP * bmp = nullptr;
+	BITMAP * bmp2 = nullptr;
+	BITMAP * bmp3 = nullptr;
     // kolme apumuuttuujaa ettei tarvitse kirjoittaa
     // niin paljon esim. ((BITMAP*) Dat[DATGUN0001+Md->Pl[Count2].Gun].dat)->w
     // (piipun bittikartan leveys)
@@ -5973,7 +5978,7 @@ void Createparallax()
     fade_out(64);
     textout_centre(Scr, (FONT*) Dat[FONT1].dat, "Loading...", SCREEN_X>>1, (SCREEN_Y>>1)-10, -1);
     Upscr();
-    fade_in((PALETTE) Dat[DATPALETTE].dat, 6);
+    fade_in(*(PALETTE*) Dat[DATPALETTE].dat, 6);
     if(Opt->Texturedearth)
         Put_texture();
     clear(Parallax);

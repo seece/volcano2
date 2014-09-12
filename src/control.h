@@ -740,7 +740,7 @@ void Checkkeys()
         if (key[Opt->Nap[i].Jump])   PlayerJump(i);
 
         if (key[KEY_F8]) {
-            Takescrshot((PALETTE) Dat[DATPALETTE].dat);
+            Takescrshot(*(PALETTE*) Dat[DATPALETTE].dat);
             key[KEY_F8] = 0;
         }
     } // for (int i = 0; i < Opt->Players; i++)

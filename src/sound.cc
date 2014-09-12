@@ -1,11 +1,58 @@
+// Stub out mikmod functions in windows version
+#ifdef _MSC_VER
+#include <cstdio>
+#include "sound.h"
 
+void Playsample(int smp,int Vol, int Pan)
+{
+	puts(__FUNCTION__);
+	puts("\n");
+}
+
+void Playsample(int smp,int Vol, int Pan, int Freq)
+{
+	puts(__FUNCTION__);
+	puts("\n");
+}
+
+void StartGameMusic()
+{
+	puts(__FUNCTION__);
+	puts("\n");
+}
+
+void StartMenuMusic()
+{
+	puts(__FUNCTION__);
+	puts("\n");
+}
+
+/**
+ * Inits MikMod / prints error messages.
+ *
+ * @return true on success
+ */
+bool Init_Music(SoundOptions* sndOpt)
+{
+	puts(__FUNCTION__);
+	puts("\n");
+	return true;
+}
+
+
+void DeInit_Music()
+{
+	puts(__FUNCTION__);
+	puts("\n");
+}
+#else
 #include "sound.h"
 
 #include <algorithm>
 #include <cstddef>
 #include <cstdio>
 #include <ctime>
-#include <mikmod.h>
+//#include <mikmod.h>
 #include <queue>
 #include <thread>
 #include <mutex>
@@ -306,3 +353,6 @@ void audioUpdater(SoundMessageQueue* smessages)
         MikMod_Update();
     }
 }
+
+
+#endif
