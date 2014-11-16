@@ -39,7 +39,7 @@ int Timer, Multi = 0, Lavatimer;
 int Curmenu = 0;
 int Filescroll = 0;
 
-// Names of *.map files, populated in Searchfiles()
+// Names of *.map files, populated in FindMapFiles()
 // (hopefully) just an temporary hack
 std::vector<std::string> mapFilenames;
 
@@ -57,7 +57,6 @@ std::vector<std::string> mapFilenames;
 
 void Sayhello();                   // tervetulotoivotus
 int main(int argc, char ** args); // pääohjelma
-void Searchfiles();                // etsii .map päätteiset tiedostot
 void Burntitle(BITMAP * bmp);      // Logon poltto
 void Menutexts();                  // valikon tekstit
 void Menu();                       // valikko
@@ -189,41 +188,7 @@ std::vector<std::string> FindMapFiles(std::string extension)
 	}
 
 	return output;
-
-	/*
-    mapFilenames.clear();
-
-    DIR* dirStream = opendir(".");
-    struct dirent* entry = new dirent;
-    struct dirent* next;
-
-    readdir_r(dirStream, entry, &next);
-    while (next) {
-        std::string filename(next->d_name);
-        std::string extension(".map");
-
-        bool isMapFile = false;
-        if(filename.length() > extension.length()) {
-            size_t extPos = filename.length() - extension.length();
-            std::string end = filename.substr(extPos);
-            for(size_t i = 0; i < end.length(); i++) {
-                end[i] = tolower(end[i]);
-            }
-
-            isMapFile = (end == extension);
-        }
-
-        if(isMapFile) {
-            mapFilenames.push_back(filename);
-        }
-
-        readdir_r(dirStream, entry, &next);
-    }
-    
-    closedir(dirStream);
-    delete entry;
-	*/
-} // void Searchfiles()
+} 
 
 void Burntitle(BITMAP * bmp)
 {
